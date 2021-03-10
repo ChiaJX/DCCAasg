@@ -28,6 +28,11 @@ namespace Sportswear.Controllers
             return View();
         }
 
+        public IActionResult aboutUs()
+        {
+            return View();
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
