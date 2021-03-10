@@ -1,6 +1,83 @@
 ﻿
 /*carousel*/
 .carousel-item {
-    max-height: 700px;
+    max-height: 650px;
     height: 70vh;
+}
+
+.carousel-caption {
+    top: 35%;
+    right: 0;
+    bottom: 0;
+    left: 60%;
+    z-index: 1;
+    height: fit-content !important;
+}
+
+.btn {
+    background: rgba(0, 0, 0, 0);
+    color: white;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    border: 1px solid white;
+}
+
+    .btn:hover {
+        background: black;
+        border: none;
+    }
+
+
+.product-card {
+    border: none;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.img-container {
+    position: relative;
+    border: none;
+}
+
+.product-img {
+    opacity: 1;
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: .5s ease;
+    backface-visibility: hidden;
+}
+
+.mask {
+    position: absolute;
+    top: 90%;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: .5s ease;
+    background-attachment: fixed;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+    .mask > .btn {
+        width: 100%;
+        border: none;
+        padding-bottom: 0 !important;
+        padding-top: 0 !important;
+        margin-top: 0.15em !important;
+        margin-bottom: 0.15em !important;
+    }
+
+    .mask:hover {
+        background-color: black;
+    }
+
+.img-container:hover .card-btn-group {
+    opacity: 1;
+}
+
+.img-container:hover .mask {
+    opacity: 1;
 }
