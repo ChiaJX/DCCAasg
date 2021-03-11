@@ -30,8 +30,8 @@ namespace Sportswear.Controllers
         public IActionResult Index()
         {
             string jsonData;
-            string AccessKey = "WACOy6+vQaT1XXsPzIK3oe1cl0EWcv3C3J4wJU82nW12V6HxlbSKoFx4QRqG1nRzBIhKXikEtkEve8bVwf4F2A==";
-            string StorageName = "sportsweartp050653";
+            string AccessKey = "";
+            string StorageName = "";
             string TableName = "ProductTable";
             AzureTables.GetAllEntity(StorageName, AccessKey, TableName, out jsonData);
             ProductEntity productEntity = JsonConvert.DeserializeObject<ProductEntity>(jsonData);
