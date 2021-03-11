@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Sportswear.Models.ProductEntity
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -51,53 +52,62 @@
         <div class="col text-center my-4"><h1>Products</h1></div>
     </div>
     <div class="row">
-        <div class="col-4">
-            <!--TODO: link product to database-->
-            <div class="card product-card">
 
-                <div class="img-container" type="button">
-                    <img class="product-img" src="https://assets.adidas.com/images/h_840,f_auto,q_auto:sensitive,fl_lossy/ccf94097efec42a1a13cac9300d379c3_9366/Forum_Plus_Shoes_White_FY5223_01_standard.jpg" />
+        @if (Model.Value != null)
+        {
+            foreach (var item in Model.Value)
+            {
+                <div class="col-4">
+                    <div class="card product-card" type="button">
+                        <a class="deco-none" asp-action="productDetails">
+                            <div class="img-container">
+                                <img class="product-img" src="@item.productImgUrl" />
 
-                    <div class="mask">
-                         <button type="button" class="btn btn-md btn-outline-secondary">View Product</button>
+                                <div class="mask">
+                                    <div class="view-text w-100">
+                                        View Product
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-body">
+                                <p class="card-text" id="product-title"> @item.productName</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <p class="card-text" id="product-price"> @item.productPrice</p>
+                                    <small class="text-muted">Dogs Sneakers</small>
+                                </div>
+                            </div>
+                        </a>
                     </div>
                 </div>
-
-                <div class="card-body">
-                    <p class="card-text" id="product-title"> BOBO SHOES</p>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <p class="card-text" id="product-price"> RM 8.00</p>
-                        <small class="text-muted">Dogs Sneakers</small>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-4">
-
-        </div>
-        <div class="col-4">
-
-        </div>
-        <div class="col-4">
-            <div class="card product-card">
-                <!--TODO: link product picture to database-->
-
-                <div class="img-container" type="button">
-                    <img class="product-img" src="https://assets.adidas.com/images/h_840,f_auto,q_auto:sensitive,fl_lossy/ccf94097efec42a1a13cac9300d379c3_9366/Forum_Plus_Shoes_White_FY5223_01_standard.jpg" />
-
-                    <div class="mask">
-                        <button type="button" class="btn btn-md btn-outline-secondary">View Product</button>
-                    </div>
-                </div>
-
-                <div class="card-body">
-                    <p class="card-text" id="product-title"> BOBO SHOES</p>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <p class="card-text" id="product-price"> RM 8.00</p>
-                        <small class="text-muted">Dogs Sneakers</small>
-                    </div>
-                </div>
-            </div>
+            }
+        }
         </div>
     </div>
-</div>
+
+
+
+
+    <style>
+        a {
+            color: inherit;
+            text-decoration: inherit;
+        }
+
+            a:link {
+                color: inherit;
+                text-decoration: inherit;
+            }
+
+            a:hover {
+                color: inherit;
+                text-decoration: inherit;
+            }
+
+        .mask > .view-text {
+            margin-top: 0.15em;
+            margin-bottom: 0.15em;
+            color: white;
+            text-align: center;
+        }
+    </style>

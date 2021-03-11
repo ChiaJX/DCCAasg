@@ -9,8 +9,19 @@ a.navbar-brand {
 
 /* Provide sufficient contrast against white background */
 a {
-  color: #0366d6;
+    color: inherit;
+    text-decoration: inherit;
 }
+
+    a:link {
+        color: inherit;
+        text-decoration: inherit;
+    }
+
+    a:hover {
+        color: inherit;
+        text-decoration: inherit;
+    }
 
 .btn-primary {
   color: #fff;

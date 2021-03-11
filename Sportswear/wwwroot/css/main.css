@@ -14,6 +14,8 @@
     height: fit-content !important;
 }
 
+
+/*button*/
 .btn {
     background: rgba(0, 0, 0, 0);
     color: white;
@@ -28,6 +30,8 @@
     }
 
 
+
+/*product card*/
 .product-card {
     border: none;
     margin-top: 1em;
@@ -61,23 +65,29 @@
     background-color: rgba(0, 0, 0, 0.6);
 }
 
-    .mask > .btn {
-        width: 100%;
-        border: none;
-        padding-bottom: 0 !important;
-        padding-top: 0 !important;
-        margin-top: 0.15em !important;
-        margin-bottom: 0.15em !important;
-    }
-
-    .mask:hover {
-        background-color: black;
-    }
-
-.img-container:hover .card-btn-group {
-    opacity: 1;
-}
 
 .img-container:hover .mask {
     opacity: 1;
 }
+
+
+/* hyperlink */
+
+a.card-text {
+    color: black !important;
+}
+
+a {
+    color: inherit;
+    text-decoration: inherit;
+}
+
+    a:link {
+        color: inherit;
+        text-decoration: inherit;
+    }
+
+    a:hover {
+        color: inherit;
+        text-decoration: inherit;
+    }
