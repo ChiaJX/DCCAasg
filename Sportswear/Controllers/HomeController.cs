@@ -18,9 +18,13 @@ namespace Sportswear.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        string StorageName = "Enter your storage name";
-        string StorageKey = "Enter the storage key";
-        string TableName = "CraneMachineMaterialUsage()";
+        //string StorageName = "Enter your storage name";
+        //string StorageKey = "Enter the storage key";
+        //string TableName = "CraneMachineMaterialUsage()";
+        string AccessKey = "WACOy6+vQaT1XXsPzIK3oe1cl0EWcv3C3J4wJU82nW12V6HxlbSKoFx4QRqG1nRzBIhKXikEtkEve8bVwf4F2A==";
+        string StorageName = "sportsweartp050653";
+        string TableName = "ProductTable";
+
 
         public HomeController(ILogger<HomeController> logger)
         {
@@ -30,9 +34,6 @@ namespace Sportswear.Controllers
         public IActionResult Index()
         {
             string jsonData;
-            string AccessKey = "";
-            string StorageName = "";
-            string TableName = "ProductTable";
             AzureTables.GetAllEntity(StorageName, AccessKey, TableName, out jsonData);
             ProductEntity productEntity = JsonConvert.DeserializeObject<ProductEntity>(jsonData);
             return View(productEntity);
@@ -51,6 +52,23 @@ namespace Sportswear.Controllers
         public IActionResult productDetails()
         {
             return View();
+        }
+
+        public IActionResult viewCart()
+        {
+            return View("~/Views/Cart/ViewCart.cshtml");
+        }
+
+
+        [HttpPost]
+        public IActionResult GetProduct(string productName)
+        {
+            if (productName == null)
+            {
+                return NotFound();
+            }
+
+            return RedirectToAction("GetSelectedData", "CartController ", new { productName = productName });
         }
 
 

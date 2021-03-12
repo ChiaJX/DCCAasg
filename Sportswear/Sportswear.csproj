@@ -1,33 +1,10 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
     <UserSecretsId>dd93d3db-8518-4595-94fa-3d1726c66366</UserSecretsId>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Remove="NewFolder\**" />
-    <Compile Remove="Views\NewFolder1\**" />
-    <Compile Remove="Views\NewFolder2\**" />
-    <Compile Remove="Views\NewFolder\**" />
-    <Compile Remove="Views\Products\**" />
-    <Content Remove="NewFolder\**" />
-    <Content Remove="Views\NewFolder1\**" />
-    <Content Remove="Views\NewFolder2\**" />
-    <Content Remove="Views\NewFolder\**" />
-    <Content Remove="Views\Products\**" />
-    <EmbeddedResource Remove="NewFolder\**" />
-    <EmbeddedResource Remove="Views\NewFolder1\**" />
-    <EmbeddedResource Remove="Views\NewFolder2\**" />
-    <EmbeddedResource Remove="Views\NewFolder\**" />
-    <EmbeddedResource Remove="Views\Products\**" />
-    <None Remove="NewFolder\**" />
-    <None Remove="Views\NewFolder1\**" />
-    <None Remove="Views\NewFolder2\**" />
-    <None Remove="Views\NewFolder\**" />
-    <None Remove="Views\Products\**" />
-  </ItemGroup>
 
   <ItemGroup>
     <Content Remove="Views\Shared\_Modal.cshtml" />
@@ -45,8 +22,6 @@
     <PackageReference Include="bootstrap" Version="4.6.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.12" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.12" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.8" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.12" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.12" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.12">
       <PrivateAssets>all</PrivateAssets>
