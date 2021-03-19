@@ -49,26 +49,15 @@ namespace Sportswear.Controllers
             return View();
         }
 
-        public IActionResult productDetails()
+        public IActionResult productDetails(string productName)
         {
+            ViewBag.message = "====>"+ productName + "<========";
             return View();
         }
 
         public IActionResult viewCart()
         {
             return View("~/Views/Cart/ViewCart.cshtml");
-        }
-
-
-        [HttpPost]
-        public IActionResult GetProduct(string productName)
-        {
-            if (productName == null)
-            {
-                return NotFound();
-            }
-
-            return RedirectToAction("GetSelectedData", "CartController ", new { productName = productName });
         }
 
 
