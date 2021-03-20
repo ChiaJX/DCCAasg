@@ -1,0 +1,102 @@
+﻿@model IEnumerable<Sportswear.Areas.Identity.Data.SportswearUser> 
+@{
+    ViewData["Title"] = "Admin Panel Page";
+}
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Sportswear.</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/main.css" />
+
+    
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<style>
+
+    #title{
+        margin-bottom:10px;
+    }
+
+    #create-btn {
+        margin-top: 10px;
+        float: right;
+    }
+
+</style>
+
+@if(ViewBag.msg!= null)
+{
+    <script>alert("@ViewBag.msg");</script>
+}
+<div class="container">
+    <h1 id="title"> Staff List  <button class="btn btn-light" id="create-btn" ><a asp-action="registerStaff"> Create </a>  </button></h1>
+    <hr />
+    <table id="example" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+            <tr>
+                <th>Staff ID</th>
+                <th>Staff Name</th>
+                <th>Email</th>
+                <th>Staff Role</th>
+                <th>Action</th>
+                <!--More column headings-->
+            </tr>
+        </thead>
+            
+
+        <tbody>
+            @foreach (Sportswear.Areas.Identity.Data.SportswearUser user in Model)
+            {
+                @if (user.userRole != null)
+                {
+                    <tr>
+                        <td>@user.Id</td>
+                        <td>@user.UserName</td>
+                        <td>@user.Email</td>
+                        <td>@user.userRole</td>
+                        @*<th>on hold</th>*@
+                        <td>
+                            <a class="btn btn-sm btn-primary" asp-action="updateStaff" asp-route-id="@user.Id">Update</a>
+                            <a class="btn btn-sm btn-warning" asp-action="deleteStaff" asp-route-id="@user.Id">Delete</a>
+                        </td>
+                    </tr>
+                }
+
+            }
+
+
+            @*<td>@item.PropertyName</td>
+        @foreach (var item in Model.MyCollection)
+        {
+            <tr>
+                <td>@item.PropertyName</td>
+            </tr>
+        }*@
+        </tbody>
+        <!--Add footer for totals-->
+    </table>
+
+
+</div>
+
+@section Scripts {
+    <script type="text/JavaScript">
+
+        $(document).ready(function () {
+            $('#example').DataTable();
+        });
+    </script>
+}
+@*<script>
+
+
+    </script>*@
+
+

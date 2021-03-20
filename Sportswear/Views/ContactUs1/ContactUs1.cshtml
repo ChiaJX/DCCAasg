@@ -1,0 +1,143 @@
+﻿@model Sportswear.Models.ContactUs;
+
+@{
+    ViewData["Title"] = "Contact Us Page";
+}
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Sportswear.</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/main.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<style>
+
+    h1, h2, h3, h4, h5, h6 {
+        color: #1b1b1b;
+        font-family: "Montserrat",sans-serif;
+    }
+
+    body {
+        color: #898989;
+        font-family: "Lato",sans-serif;
+    }
+    /*---contact form---*/
+
+    .contactus-one .contact-form .form-control {
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        border-bottom: 1px solid #fff;
+        border-radius: 0px;
+        background-color: transparent;
+        /*color: #fff;*/
+        height: 50px;
+    }
+
+    .contactus-one .contact-form .form-control {
+        border-bottom: 1px solid #ccc;
+        box-shadow: none;
+    }
+
+    .contact-info > div > p {
+        margin-bottom: 10px;
+    }
+
+    .contactus-one .contact-info p i {
+        margin-right: 15px;
+        color: #ee2b63;
+    }
+
+    .map iframe {
+        pointer-events: none;
+        width: 100%;
+        border: none;
+    }
+
+
+
+    .map iframe {
+        pointer-events: none;
+        width: 100%;
+        border: none;
+    }
+
+    .contactus-one .dart-headingstyle-one .dart-heading:after {
+        left: 15px;
+    }
+
+    .normal-btn {
+        background: #ee2b63 none repeat scroll 0 0;
+        border-radius: 5px;
+        color: #ffffff;
+        margin-bottom: 10px;
+        margin-top: 10px;
+        text-transform: uppercase;
+    }
+</style>
+<section class="contactus-one" id="contactus">
+    <!-- Section id-->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <div class="map">
+                    <iframe height="580" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" id="gmap_canvas" src="https://maps.google.com/maps?width=520&amp;height=400&amp;hl=en&amp;q=%20kuala%20lumpur+()&amp;t=&amp;z=12&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe> <a href='https://embedmap.org/'>google maps html widget</a>
+                    <script type='text/javascript' src='https://embedmaps.com/google-maps-authorization/script.js?id=d376d911e14844d0e9f4ab3ca48b3d1af455105f'></script>
+                </div>
+            </div>
+            <div class=" col-md-5 col-sm-6">
+                <div class="contact-block">
+                    <div class="dart-headingstyle-one dart-mb-20">
+                        <!--Style 1-->
+                        <h2 class="dart-heading">Contact Us</h2>
+                    </div>
+
+                    <div class="contact-form">
+                        <!-- contact form -->
+                        <form class="row" action="send_email.php" id="contact" name="contact" method="post">
+
+                            <div class="form-group col-md-6">
+                                <input type="text" class="form-control" name="InputName" id="InputName" placeholder="Your Name" required>@Html.EditorFor(model => model.SenderName)
+                            </div>
+                            <div class="form-group col-md-6">
+                                <input type="email" class="form-control" name="InputEmail" id="InputEmail" placeholder="Your Email" required>@Html.EditorFor(model => model.UserEmail)
+                            </div>
+
+                            <div class="form-group col-md-12">
+                                <input type="text" class="form-control" name="InputWeb" id="InputWeb" placeholder="Email Subject" required>>@Html.EditorFor(model => model.Subject)
+                            </div>
+                            <div class="form-group col-md-12">
+                                <textarea class="form-control" InputMessage" id="InputMessage" rows="4" placeholder="Message" required> </textare
+                            </div>
+
+                            <div class="col-md-12">
+                                <input name="submit" type="submit" value="Send Email" class="btn normal-btn dart-btn-xs"></input>
+                            </div>
+
+                        </form>
+                    </div>
+
+                    <hr>
+
+                    <div class=" row contact-info">
+                        <div class="col-md-12 col-sm-12">
+                            <p class="address"><i class="fa fa-map-marker"></i>Unit 8-8, Level 8 Tower SportWear, Jalan SportWear,47900 Petaling Jaya, Selangor </p>
+                        </div>
+                        <div class="col-md-12 col-sm-12">
+                            <p class="phone-call"><i class="fa fa-phone"></i> <a href="tel:+60578892">+60161234567</a></p>
+                        </div>
+                        <div class="col-md-12 col-sm-12">
+                            <p class="mail-id"><i class="fa fa-envelope"></i>contact@SportWear.com</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

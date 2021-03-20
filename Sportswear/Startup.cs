@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
@@ -12,6 +12,9 @@ using Microsoft.Extensions.Azure;
 using Azure.Storage.Queues;
 using Azure.Storage.Blobs;
 using Azure.Core.Extensions;
+using Microsoft.EntityFrameworkCore;
+using Sportswear.Data;
+
 
 namespace Sportswear
 {
@@ -28,11 +31,16 @@ namespace Sportswear
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
             services.AddAzureClients(builder =>
             {
                 builder.AddBlobServiceClient(Configuration["ConnectionStrings:sportswearstorage:blob"], preferMsi: true);
                 builder.AddQueueServiceClient(Configuration["ConnectionStrings:sportswearstorage:queue"], preferMsi: true);
             });
+            services.AddRazorPages();
+
+            services.AddDbContext<SportswearNewContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("SportswearNewContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,7 +60,7 @@ namespace Sportswear
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -60,7 +68,7 @@ namespace Sportswear
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
-
+              
                 endpoints.MapControllerRoute(
                    name: "product",
                    pattern: "{controller=Product}/{action=Index}/{id?}");
@@ -68,6 +76,9 @@ namespace Sportswear
                 endpoints.MapControllerRoute(
                    name: "cart",
                    pattern: "{controller=Cart}/{action=Index}/{id?}");
+              
+                endpoints.MapRazorPages();
+
             });
         }
     }
