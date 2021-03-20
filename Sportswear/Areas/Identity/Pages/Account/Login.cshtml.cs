@@ -92,14 +92,14 @@ namespace Sportswear.Areas.Identity.Pages.Account
                     {
                         if (String.IsNullOrEmpty(userRole))
                         {
-                            return RedirectToAction("Privacy", "Home");
+                            return RedirectToAction("Index", "Home");
 
                         }else if (userRole.Equals("Admin"))
                         {
                             return RedirectToAction("AdminPanel", "Admin");
                         }else if (userRole.Equals("Staff"))
                         {
-                            return RedirectToAction("AdminPanel", "Admin");
+                            return RedirectToAction("Index", "Home");
                        }
                     }
                     //return LocalRedirect(returnUrl);

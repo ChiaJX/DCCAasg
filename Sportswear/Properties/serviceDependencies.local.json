@@ -4,6 +4,16 @@
       "type": "mssql.local",
       "connectionId": "SportswearContextConnection"
     },
+
+    "secrets1": {
+      "type": "secrets.user"
+    },
+    "storage1": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourcegroups/[parameters('resourceGroupName')]/providers/Microsoft.Storage/storageAccounts/sportsweartp050653",
+      "type": "storage.azure",
+      "connectionId": "sportswearstorage",
+      "secretStore": "LocalSecretsFile"
+    },
     "mssql2": {
       "resourceId": null,
       "type": "mssql.local",
