@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IEnumerable<Sportswear.Areas.Identity.Data.SportswearUser> 
+@{
     ViewData["Title"] = "Admin Panel Page";
 }
 <html lang="en">
@@ -29,6 +30,11 @@
     }
 
 </style>
+
+@if(ViewBag.msg!= null)
+{
+    <script>alert("@ViewBag.msg");</script>
+}
 <div class="container">
     <h1 id="title"> Staff List  <button class="btn btn-light" id="create-btn" ><a asp-action="registerStaff"> Create </a>  </button></h1>
     <hr />
@@ -38,7 +44,7 @@
                 <th>Staff ID</th>
                 <th>Staff Name</th>
                 <th>Staff Role</th>
-                <th>Staff Status</th>
+                @*<th>Staff Status</th>*@
                 <th>Action</th>
                 <!--More column headings-->
             </tr>
@@ -46,15 +52,27 @@
             
 
         <tbody>
-            <tr>
-                <td>001</td>
-                <td>Jun Jie</td>
-                <td>Staff</td>
-                <td>Active</td>
-                <td><button>Update</button>   <button>Delete</button></td>
-            </tr>
-        
-        @*<td>@item.PropertyName</td>
+            @foreach (Sportswear.Areas.Identity.Data.SportswearUser user in Model)
+            {
+                @if (user.userRole != null)
+                {
+                    <tr>
+                        <td>@user.Id</td>
+                        @*<td>Jun Jie</td>*@
+                        <td>@user.Email</td>
+                        <td>@user.userRole</td>
+                        @*<th>on hold</th>*@
+                        <td>
+                            <a class="btn btn-sm btn-primary" asp-action="updateStaff" asp-route-id="@user.Id">Update</a>
+                            <a class="btn btn-sm btn-primary" asp-action="deleteStaff" asp-route-id="@user.Id">Delete</a>
+                        </td>
+                    </tr>
+                }
+
+            }
+
+
+            @*<td>@item.PropertyName</td>
         @foreach (var item in Model.MyCollection)
         {
             <tr>

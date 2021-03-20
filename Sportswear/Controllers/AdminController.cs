@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Sportswear.Areas.Identity.Data;
 using Sportswear.Data;
@@ -24,9 +25,10 @@ namespace Sportswear.Views.Admin
         }
 
 
-        public IActionResult AdminPanel()
+        public IActionResult AdminPanel(String msg=null)
         {
-            return View();
+            ViewBag.msg = msg;
+            return View(userManager.Users);
         }
 
         public IActionResult registerStaff()
@@ -65,6 +67,71 @@ namespace Sportswear.Views.Admin
             return View(user);
 
         }
+
+        public async Task<IActionResult> updateStaff(string id)
+        {
+            SportswearUser user = await userManager.FindByIdAsync(id);
+            Boolean a = false; Boolean b = false; Boolean c = false;
+            if(user.userRole == "Admin")
+            {
+                a = true;
+            }
+            else if(user.userRole == "Staff")
+            {
+                b = true;
+            }
+            else
+            {
+                c = true;
+            }
+            ViewBag.users = new List<SelectListItem>
+            {
+                //new SelectListItem{Selected = c, Text = "Select Option",Value= ""},
+                new SelectListItem{Selected = b, Text = "Staff",Value= "Staff"},
+                new SelectListItem{Selected = a, Text = "Admin",Value= "Admin"}
+            };
+            if (user != null)
+                return View(user);
+            else
+                return RedirectToAction("AdminPanel");
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult>updateStaff(string id,string email,string userrole)
+        {
+            SportswearUser user = await userManager.FindByIdAsync(id);
+            if (user != null)
+            {
+                user.Email = email;
+                user.userRole = userrole;
+
+                IdentityResult result = await userManager.UpdateAsync(user);
+                if (result.Succeeded)
+                    return RedirectToAction("AdminPanel", new { msg = "User updated!" });
+                else
+                    return View(user);
+            }
+            else
+                ModelState.AddModelError("", "User Not Found");
+            return View(user);
+        }
+
+        public async Task<IActionResult> deleteStaff(String id)
+        {
+            SportswearUser user = await userManager.FindByIdAsync(id);
+
+            if (user != null)
+            {
+                await userManager.DeleteAsync(user);
+            }
+            else
+            {
+                return RedirectToAction("AdminPanel", new { msg = "Fail to delete user" });
+            }
+            return RedirectToAction("AdminPanel", new { msg = "User deleted!" });
+        }
+
         //public async Task<IActionResult> AdminPanel()
         //{
         //    var staffList = from user in context.Users
