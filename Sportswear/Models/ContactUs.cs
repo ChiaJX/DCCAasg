@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace Sportswear.Models
 {
-    public class ContactUs1
+    public class ContactUs
     {
         
-        public string ID { get; set; }
+        public int ID { get; set; }
         public string SenderName { get; set; }
         public string Message { get; set; }
         public string Subject { get; set; }

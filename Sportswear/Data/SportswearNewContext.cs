@@ -14,6 +14,6 @@ namespace Sportswear.Data
         {
         }
 
-        public DbSet<Sportswear.Models.ContactUs1> ContactUs { get; set; }
+        public DbSet<Sportswear.Models.ContactUs> ContactUs { get; set; }
     }
 }

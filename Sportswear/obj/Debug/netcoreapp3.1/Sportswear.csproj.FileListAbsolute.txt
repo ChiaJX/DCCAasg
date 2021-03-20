@@ -884,9 +884,9 @@ C:\Users\Asus\source\repos\ChiaJX\DDAC\Sportswear\bin\Debug\netcoreapp3.1\runtim
 C:\Users\Asus\source\repos\ChiaJX\DDAC\Sportswear\bin\Debug\netcoreapp3.1\runtimes\win-arm64\native\e_sqlite3.dll
 C:\Users\Asus\source\repos\ChiaJX\DDAC\Sportswear\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\e_sqlite3.dll
 C:\Users\Asus\source\repos\ChiaJX\DDAC\Sportswear\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\e_sqlite3.dll
-C:\Users\Asus\source\repos\ChiaJX\DDAC\Sportswear\obj\Debug\netcoreapp3.1\Razor\Views\ContactUs\ContactUs1.cshtml.g.cs
-C:\Users\Asus\source\repos\ChiaJX\DDAC\Sportswear\obj\Debug\netcoreapp3.1\Razor\Views\ContactUs\Create.cshtml.g.cs
-C:\Users\Asus\source\repos\ChiaJX\DDAC\Sportswear\obj\Debug\netcoreapp3.1\Razor\Views\ContactUs\Delete.cshtml.g.cs
-C:\Users\Asus\source\repos\ChiaJX\DDAC\Sportswear\obj\Debug\netcoreapp3.1\Razor\Views\ContactUs\Details.cshtml.g.cs
-C:\Users\Asus\source\repos\ChiaJX\DDAC\Sportswear\obj\Debug\netcoreapp3.1\Razor\Views\ContactUs\Edit.cshtml.g.cs
-C:\Users\Asus\source\repos\ChiaJX\DDAC\Sportswear\obj\Debug\netcoreapp3.1\Razor\Views\ContactUs\Index.cshtml.g.cs
+C:\Users\Asus\source\repos\ChiaJX\DDAC\Sportswear\obj\Debug\netcoreapp3.1\Razor\Views\ContactUs1\ContactUs1.cshtml.g.cs
+C:\Users\Asus\source\repos\ChiaJX\DDAC\Sportswear\obj\Debug\netcoreapp3.1\Razor\Views\ContactUs1\Create.cshtml.g.cs
+C:\Users\Asus\source\repos\ChiaJX\DDAC\Sportswear\obj\Debug\netcoreapp3.1\Razor\Views\ContactUs1\Delete.cshtml.g.cs
+C:\Users\Asus\source\repos\ChiaJX\DDAC\Sportswear\obj\Debug\netcoreapp3.1\Razor\Views\ContactUs1\Details.cshtml.g.cs
+C:\Users\Asus\source\repos\ChiaJX\DDAC\Sportswear\obj\Debug\netcoreapp3.1\Razor\Views\ContactUs1\Edit.cshtml.g.cs
+C:\Users\Asus\source\repos\ChiaJX\DDAC\Sportswear\obj\Debug\netcoreapp3.1\Razor\Views\ContactUs1\Index.cshtml.g.cs
