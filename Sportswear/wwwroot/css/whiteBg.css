@@ -1,0 +1,48 @@
+﻿
+/*button*/
+.btn {
+    background: black;
+    color: white;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    border: none;
+}
+    .btn:hover {
+        background: rgba(0, 0, 0, 0);
+        colour: black;
+        border: 1px solid black;
+    }
+
+
+
+.black-border {
+    border: 1px solid black;
+}
+
+.no-border {
+    border:none;
+}
+
+    .no-border:hover {
+        background: rgba(0, 0, 0, 0);
+        color: grey;
+        font-size: larger;
+        border: none;
+    }
+
+
+.btn-qty {
+    width: 52px;
+    height: 46px;
+    background: rgba(0, 0, 0, 0); 
+    color: black;
+    border-radius:.5rem;
+}
+
+
+
+
+/*breadcrumb*/
+.breadcrumb {
+    background: rgba(0, 0, 0, 0);
+}
