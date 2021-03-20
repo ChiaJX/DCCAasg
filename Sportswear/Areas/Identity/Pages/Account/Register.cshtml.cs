@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using Sportswear.Areas.Identity.Data;
@@ -36,6 +37,14 @@ namespace Sportswear.Areas.Identity.Pages.Account
             _logger = logger;
             _emailSender = emailSender;
         }
+        //public SelectList RoleSelectList = new SelectList(
+        //    new List<SelectListItem>
+        //    {
+        //        new SelectListItem {Selected = true, Text = "Select Role", Value = ""},
+        //        new SelectListItem {Selected = false, Text = "Admin", Value = "Admin"},
+        //        new SelectListItem {Selected = false, Text = "Staff", Value = "Staff"},
+        //    }, "Value", "Text", 1);
+        
 
         [BindProperty]
         public InputModel Input { get; set; }

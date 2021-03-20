@@ -4,12 +4,146 @@
     ViewData["Title"] = "Register";
 }
 
-<h1>@ViewData["Title"]</h1>
+@*<h1>@ViewData["Title"]</h1>*@
 
-<div class="row">
-    <div class="col-md-4">
-        <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <h4>Create a new account.</h4>
+<style>
+
+       body, html {
+           height: 100%;
+           background-repeat: no-repeat;
+           background-image: linear-gradient(rgb(104, 145, 162), #f8f9fa)
+       }
+
+       .card-container.card {
+           max-width: 600px;
+           padding: 40px 40px;
+       }
+
+       .btn {
+           font-weight: 700;
+           height: 36px;
+           -moz-user-select: none;
+           -webkit-user-select: none;
+           user-select: none;
+           cursor: default;
+       }
+
+       /*
+    * Card component
+    */
+       .card {
+           background-color: #F7F7F7;
+           /* just in case there no content*/
+           padding: 20px 25px 30px;
+           margin: 0 auto 25px;
+           margin-top: 50px;
+           /* shadows and rounded borders */
+           -moz-border-radius: 2px;
+           -webkit-border-radius: 2px;
+           border-radius: 2px;
+           -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+           -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+           box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+       }
+
+       .profile-img-card {
+           width: 96px;
+           height: 96px;
+           margin: 0 auto 10px;
+           display: block;
+           -moz-border-radius: 50%;
+           -webkit-border-radius: 50%;
+           border-radius: 50%;
+       }
+
+       /*
+    * Form styles
+    */
+       .profile-name-card {
+           font-size: 16px;
+           font-weight: bold;
+           text-align: center;
+           margin: 10px 0 0;
+           min-height: 1em;
+       }
+
+       .reauth-email {
+           display: block;
+           color: #404040;
+           line-height: 2;
+           margin-bottom: 10px;
+           font-size: 14px;
+           text-align: center;
+           overflow: hidden;
+           text-overflow: ellipsis;
+           white-space: nowrap;
+           -moz-box-sizing: border-box;
+           -webkit-box-sizing: border-box;
+           box-sizing: border-box;
+       }
+
+    .form-register #inputEmail,
+    .form-register #inputPassword {
+        direction: ltr;
+        height: 44px;
+        font-size: 16px;
+    }
+
+    .form-register input[type=email],
+    .form-register input[type=password],
+    .form-registerinput[type=text],
+    .form-register button {
+        width: 100%;
+        display: block;
+        margin-bottom: 10px;
+        z-index: 1;
+        position: relative;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    .form-register .form-control:focus {
+        border-color: rgb(104, 145, 162);
+        outline: 0;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgb(104, 145, 162);
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgb(104, 145, 162);
+    }
+
+    .btn.btn-register {
+        /*background-color: #4d90fe; */
+        background-color: rgb(104, 145, 162);
+        /* background-color: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));*/
+        padding: 0px;
+        font-weight: 700;
+        font-size: 14px;
+        height: 36px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        border-radius: 3px;
+        border: none;
+        -o-transition: all 0.218s;
+        -moz-transition: all 0.218s;
+        -webkit-transition: all 0.218s;
+        transition: all 0.218s;
+    }
+
+    .btn.btn-register:hover,
+    .btn.btn-register:active,
+    .btn.btn-register:focus {
+        background-color: #495057;
+    }
+
+
+</style>
+
+<div class="container">
+    <div class="card card-container">
+        <!-- <img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" /> -->
+        
+        @*<p id="profile-name" class="profile-name-card"></p>*@
+        <form class = "form-register" asp-route-returnUrl="@Model.ReturnUrl" method="post" >
+            <h4>Create a new account</h4>
             <hr />
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
@@ -27,40 +161,69 @@
                 <input asp-for="Input.ConfirmPassword" class="form-control" />
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
-            <button type="submit" class="btn btn-primary">Register</button>
+            <button type="submit" class="btn btn-primary btn-register">Register</button>
         </form>
-    </div>
-    <div class="col-md-6 col-md-offset-2">
-        <section>
-            <h4>Use another service to register.</h4>
-            <hr />
-            @{
-                if ((Model.ExternalLogins?.Count ?? 0) == 0)
-                {
-                    <div>
-                        <p>
-                            There are no external authentication services configured. See <a href="https://go.microsoft.com/fwlink/?LinkID=532715">this article</a>
-                            for details on setting up this ASP.NET application to support logging in via external services.
-                        </p>
-                    </div>
-                }
-                else
-                {
-                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+        
+    </div><!-- /card-container -->
+</div><!-- /container -->
+
+
+
+@*<div class="row">
+        <div class="col-md-4">
+            <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                <h4>Create a new account.</h4>
+                <hr />
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Input.Email"></label>
+                    <input asp-for="Input.Email" class="form-control" />
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.Password"></label>
+                    <input asp-for="Input.Password" class="form-control" />
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.ConfirmPassword"></label>
+                    <input asp-for="Input.ConfirmPassword" class="form-control" />
+                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-primary">Register</button>
+            </form>
+        </div>
+        <div class="col-md-6 col-md-offset-2">
+            <section>
+                <h4>Use another service to register.</h4>
+                <hr />
+                @{
+                    if ((Model.ExternalLogins?.Count ?? 0) == 0)
+                    {
                         <div>
                             <p>
-                                @foreach (var provider in Model.ExternalLogins)
-                                {
-                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
-                                }
+                                There are no external authentication services configured. See <a href="https://go.microsoft.com/fwlink/?LinkID=532715">this article</a>
+                                for details on setting up this ASP.NET application to support logging in via external services.
                             </p>
                         </div>
-                    </form>
+                    }
+                    else
+                    {
+                        <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                            <div>
+                                <p>
+                                    @foreach (var provider in Model.ExternalLogins)
+                                    {
+                                        <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                                    }
+                                </p>
+                            </div>
+                        </form>
+                    }
                 }
-            }
-        </section>
-    </div>
-</div>
+            </section>
+        </div>
+    </div>*@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
