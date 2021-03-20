@@ -7,10 +7,16 @@
     "secrets1": {
       "type": "secrets.user"
     },
+    "mssql2": {
+      "resourceId": null,
+      "type": "mssql.local",
+      "connectionId": "SportswearNewContext",
+      "secretStore": null
+    },
     "storage1": {
-      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourcegroups/[parameters('resourceGroupName')]/providers/Microsoft.Storage/storageAccounts/sportsweartp050653",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourcegroups/[parameters('resourceGroupName')]/providers/Microsoft.Storage/storageAccounts/sportswearblobstorage",
       "type": "storage.azure",
-      "connectionId": "sportswearstorage",
+      "connectionId": "SportswearBlobStorage",
       "secretStore": "LocalSecretsFile"
     }
   }

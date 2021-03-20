@@ -81,10 +81,28 @@ namespace Sportswear.Areas.Identity.Pages.Account
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+                var users = from m in _userManager.Users
+                            where m.Email.Equals(Input.Email)
+                            select m.userRole;
+                
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    return LocalRedirect(returnUrl);
+                    foreach(String userRole in users)
+                    {
+                        if (String.IsNullOrEmpty(userRole))
+                        {
+                            return RedirectToAction("Index", "Home");
+
+                        }else if (userRole.Equals("Admin"))
+                        {
+                            return RedirectToAction("AdminPanel", "Admin");
+                        }else if (userRole.Equals("Staff"))
+                        {
+                            return RedirectToAction("Index", "Home");
+                       }
+                    }
+                    //return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)
                 {

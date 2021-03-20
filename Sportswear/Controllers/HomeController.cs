@@ -1,16 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Table;
-using Newtonsoft.Json;
 using Sportswear.Models;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Sportswear.Controllers
 {
@@ -25,13 +17,17 @@ namespace Sportswear.Controllers
 
         public IActionResult Index()
         {
+<<<<<<< HEAD
+=======
+            return View();
+>>>>>>> testingbranch
         }
 
         public IActionResult Privacy()
         {
             return View();
         }
-
+        
         public IActionResult aboutUs()
         {
             return View();
@@ -46,12 +42,18 @@ namespace Sportswear.Controllers
         {
             return View("~/Views/Cart/ViewCart.cshtml");
         }
-
+        
+        public IActionResult AdminPanel()
+        {
+            return View();
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+
     }
 }

@@ -9,5 +9,13 @@ namespace Sportswear.Areas.Identity.Data
     // Add profile data for application users by adding properties to the SportswearUser class
     public class SportswearUser : IdentityUser
     {
+        //[PersonalData]
+        //public string UserName { get; set; }
+
+        //[PersonalData]
+        //public string Email { get; set; }
+
+        [PersonalData]
+        public string userRole { get; set; }
     }
 }

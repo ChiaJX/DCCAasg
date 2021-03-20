@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using Sportswear.Areas.Identity.Data;
@@ -36,6 +37,14 @@ namespace Sportswear.Areas.Identity.Pages.Account
             _logger = logger;
             _emailSender = emailSender;
         }
+        //public SelectList RoleSelectList = new SelectList(
+        //    new List<SelectListItem>
+        //    {
+        //        new SelectListItem {Selected = true, Text = "Select Role", Value = ""},
+        //        new SelectListItem {Selected = false, Text = "Admin", Value = "Admin"},
+        //        new SelectListItem {Selected = false, Text = "Staff", Value = "Staff"},
+        //    }, "Value", "Text", 1);
+        
 
         [BindProperty]
         public InputModel Input { get; set; }
@@ -73,9 +82,11 @@ namespace Sportswear.Areas.Identity.Pages.Account
         {
             returnUrl = returnUrl ?? Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
             if (ModelState.IsValid)
             {
-                var user = new SportswearUser { UserName = Input.Email, Email = Input.Email };
+
+                var user = new SportswearUser { UserName = Input.Email, Email = Input.Email, EmailConfirmed = true};
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
@@ -94,7 +105,8 @@ namespace Sportswear.Areas.Identity.Pages.Account
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
-                        return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
+                        //return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
+                        return RedirectToPage("Index", "Home");
                     }
                     else
                     {
