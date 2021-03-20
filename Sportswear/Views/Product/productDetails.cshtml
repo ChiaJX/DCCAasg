@@ -4,10 +4,10 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb px-5">
         <li class="breadcrumb-item">
-            <a asp-action="Index">Home</a>
+            <a asp-controller="Home" asp-action="Index">Home</a>
         </li>
         <li class="breadcrumb-item">
-            <a asp-action="ViewProduct">Products</a>
+            <a asp-controller="Home" asp-action="ViewProduct">Products</a>
         </li>
         <li class="breadcrumb-item active" aria-current="page">@ViewBag.productName</li>
     </ol>

@@ -47,7 +47,7 @@
 </div>
 
 
-<section id="product-container">
+<section id="view-product">
     <div class="container mt-3">
         <div class="row">
             <div class="col text-center my-4"><h1>Products</h1></div>
@@ -60,7 +60,7 @@
                 {
                     <div class="col-4">
                         <div class="card product-card" type="button">
-                            <a class="deco-none" asp-action="productDetails" asp-route-productName="@item.productName">
+                            <a class="deco-none" asp-controller="Product" asp-action="productDetails" asp-route-productName="@item.productName">
                                 <div class="img-container">
                                     <img class="product-img" src="@item.productImgUrl" />
 

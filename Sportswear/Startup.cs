@@ -60,6 +60,10 @@ namespace Sportswear
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapControllerRoute(
+                   name: "product",
+                   pattern: "{controller=Product}/{action=Index}/{id?}");
             });
         }
     }

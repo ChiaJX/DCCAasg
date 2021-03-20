@@ -171,7 +171,6 @@ C:\Users\User\Sportswear\Sportswear\obj\Debug\netcoreapp3.1\Sportswear.csproj.Co
 C:\Users\User\Sportswear\Sportswear\obj\Debug\netcoreapp3.1\Sportswear.dll
 C:\Users\User\Sportswear\Sportswear\obj\Debug\netcoreapp3.1\Sportswear.pdb
 C:\Users\User\Sportswear\Sportswear\obj\Debug\netcoreapp3.1\Sportswear.genruntimeconfig.cache
-C:\Users\User\Sportswear\Sportswear\obj\Debug\netcoreapp3.1\Razor\Views\Home\productDetails.cshtml.g.cs
 C:\Users\User\Sportswear\Sportswear\bin\Debug\netcoreapp3.1\Azure.Core.dll
 C:\Users\User\Sportswear\Sportswear\bin\Debug\netcoreapp3.1\Azure.Identity.dll
 C:\Users\User\Sportswear\Sportswear\bin\Debug\netcoreapp3.1\Azure.Storage.Blobs.dll
@@ -181,3 +180,4 @@ C:\Users\User\Sportswear\Sportswear\bin\Debug\netcoreapp3.1\Azure.Storage.Queues
 C:\Users\User\Sportswear\Sportswear\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Azure.dll
 C:\Users\User\Sportswear\Sportswear\bin\Debug\netcoreapp3.1\Microsoft.WindowsAzure.Storage.dll
 C:\Users\User\Sportswear\Sportswear\obj\Debug\netcoreapp3.1\Razor\Views\Cart\ViewCart.cshtml.g.cs
+C:\Users\User\Sportswear\Sportswear\obj\Debug\netcoreapp3.1\Razor\Views\Product\productDetails.cshtml.g.cs
