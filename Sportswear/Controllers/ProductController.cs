@@ -53,12 +53,12 @@ namespace Sportswear.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-
+                //TODO: head to payment gateway
+                return RedirectToPage(Payment);
             } else
             {
-                Redire
+                return RedirectToRoute("/Account/Login");
             }
-            return View();
         }
     }
 }
