@@ -7,13 +7,13 @@
     "secrets1": {
       "type": "secrets"
     },
-    "storage1": {
-      "type": "storage",
-      "connectionId": "sportswearstorage"
-    },
     "mssql2": {
       "type": "mssql",
       "connectionId": "SportswearNewContext"
+    },
+    "storage1": {
+      "type": "storage",
+      "connectionId": "SportswearBlobStorage"
     }
   }
 }

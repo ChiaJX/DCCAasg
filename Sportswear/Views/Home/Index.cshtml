@@ -56,34 +56,34 @@
         </div>
         <div class="row">
 
-            @if (Model.Value != null)
-            {
-                foreach (var item in Model.Value)
-                {
-                    <div class="col-4">
-                        <div class="card product-card" type="button">
-                            <a class="deco-none" asp-controller="Product" asp-action="productDetails" asp-route-productName="@item.productName">
-                                <div class="img-container">
-                                    <img class="product-img" src="@item.productImgUrl" />
+            <!--@if (Model.Value != null)
+    {
+        foreach (var item in Model.Value)
+        {-->
+            <div class="col-4">
+                <div class="card product-card" type="button">
+                    <a class="deco-none" asp-controller="Product" asp-action="productDetails" asp-route-productName="productName">
+                        <div class="img-container">
+                            <img class="product-img" src="productImgUrl" />
 
-                                    <div class="mask">
-                                        <div class="view-text w-100">
-                                            View Product
-                                        </div>
-                                    </div>
+                            <div class="mask">
+                                <div class="view-text w-100">
+                                    View Product
                                 </div>
-
-                                <div class="card-body">
-                                    <p class="card-text" id="product-title"> @item.productName</p>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <p class="card-text" id="product-price"> @item.productPrice</p>
-                                        <small class="text-muted">Dogs Sneakers</small>
-                                    </div>
-                                </div>
-                            </a>
+                            </div>
                         </div>
-                    </div>
-                }
+
+                        <div class="card-body">
+                            <p class="card-text" id="product-title"> productName</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <p class="card-text" id="product-price"> productPrice</p>
+                                <small class="text-muted">Dogs Sneakers</small>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            }
             }
         </div>
     </div>
