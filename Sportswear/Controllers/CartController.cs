@@ -13,7 +13,7 @@ namespace Sportswear.Controllers
             return View();
         }
 
-        public ActionResult GetSelectedData(string productName)
+        public ActionResult GetSelectedProduct(string productName)
         {
             ViewBag.Message = productName;
             return View();
