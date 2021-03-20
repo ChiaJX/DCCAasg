@@ -35,7 +35,6 @@ namespace Sportswear
             services.AddAzureClients(builder =>
             {
                 builder.AddBlobServiceClient(Configuration["ConnectionStrings:sportswearstorage:blob"], preferMsi: true);
-                builder.AddQueueServiceClient(Configuration["ConnectionStrings:sportswearstorage:queue"], preferMsi: true);
             });
             services.AddRazorPages();
 
