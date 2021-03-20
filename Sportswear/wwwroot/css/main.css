@@ -16,6 +16,7 @@
 
 
 /*button*/
+
 .btn {
     background: rgba(0, 0, 0, 0);
     color: white;
@@ -78,8 +79,3 @@ a {
         text-decoration: inherit;
     }
 
-
-/* view Product */
-.view-pdtocart.btn {
-    background: black;
-}

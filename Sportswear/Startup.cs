@@ -64,6 +64,10 @@ namespace Sportswear
                 endpoints.MapControllerRoute(
                    name: "product",
                    pattern: "{controller=Product}/{action=Index}/{id?}");
+
+                endpoints.MapControllerRoute(
+                   name: "cart",
+                   pattern: "{controller=Cart}/{action=Index}/{id?}");
             });
         }
     }
