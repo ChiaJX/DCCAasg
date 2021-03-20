@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Sportswear.Models
 {
-    public class ContactUs
+    public class ContactUs1
     {
         
         public string ID { get; set; }
