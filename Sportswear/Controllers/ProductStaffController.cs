@@ -5,10 +5,10 @@
     using Microsoft.AspNetCore.Mvc;
     using Sportswear.Models;
 
-    public class ProductController : Controller
+    public class ProductStaffController : Controller
     {
         private readonly ICosmosDbService _cosmosDbService;
-        public ProductController(ICosmosDbService cosmosDbService)
+        public ProductStaffController(ICosmosDbService cosmosDbService)
         {
             _cosmosDbService = cosmosDbService;
         }
