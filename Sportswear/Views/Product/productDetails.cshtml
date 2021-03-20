@@ -1,0 +1,100 @@
+﻿
+
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb px-5">
+        <li class="breadcrumb-item">
+            <a asp-controller="Home" asp-action="Index">Home</a>
+        </li>
+        <li class="breadcrumb-item">
+            <a asp-controller="Home" asp-action="ViewProduct">Products</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">@ViewBag.productName</li>
+    </ol>
+</nav>
+
+
+
+<div class="container mt-5">
+    <div class="row">
+
+        <div class="col-6">
+            get [this is the product image]
+            <!--<img src=""
+                alt="[product Name Here]"
+                class="@ViewBag.productName" />
+            -->
+        </div>
+
+
+        <div class="col-6">
+
+            <div class="row view-pdname">
+                <div class="col-12">
+                    <h1>@ViewBag.productName</h1>
+                </div>
+            </div>
+
+            <div class="row view-pdcat">
+                <div class="col-12">
+                    <span class="monospaced">Product  Category  Here</span>
+                </div>
+            </div>
+
+            <div class="row view-pdcat-desc">
+                <div class="col-12">
+                    <p class="description">
+                        Product Description Here
+                    </p>
+                </div>
+            </div>
+            <!-- rating , enalble if needed-->
+            <!--
+               <div class="row">
+                    <div class="col-md-3">
+                         <span class="sr-only">Four out of Five Stars</span>
+                         <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                         <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                         <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                         <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                         <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+                         <span class="label label-success">Rating Count</span>
+                    </div>
+                    <div class="col-3">
+                       <span class="monospaced">Write a Review</span>
+                    </div>
+               </div>
+            -->
+            <div class="row view-pdprice">
+                <div class="col-12 bottom-rule">
+                    <h2 class="product-price">Product Price Here</h2>
+                </div>
+            </div>
+
+            <div class="row add-to-cart view-pdtocart">
+                <div class="col-5 product-qty">
+                    <span class="btn btn-default btn-lg btn-qty">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    </span>
+                    <input class="btn btn-default btn-lg btn-qty" value="1" />
+                    <span class="btn btn-default btn-lg btn-qty">
+                        <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+                    </span>
+                </div>
+
+                <div class="col-4">
+                    <button class="btn btn-lg btn-brand btn-full-width">
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-4 text-center">
+                    <span class="monospaced">In Stock</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
