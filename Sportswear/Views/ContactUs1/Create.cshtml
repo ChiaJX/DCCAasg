@@ -80,6 +80,12 @@
         text-transform: uppercase;
     }
 </style>
+
+@if (ViewBag.msg != null)
+{
+    <script>alert("@ViewBag.msg");</script>
+}
+
 <section class="contactus-one" id="contactus">
     <!-- Section id-->
     <div class="container">
@@ -102,28 +108,28 @@
                         <form class="row" id="contact" asp-action="Create">
 
                             <div class="form-group col-md-6">
-                                <input asp-for="SenderName" type="text"  class="form-control" id="InputName" placeholder="Your Name" required>
+                                <input asp-for="SenderName" type="text" class="form-control" id="InputName" placeholder="Your Name" required>
                                 <span asp-validation-for="SenderName" class="text-danger"></span>
                             </div>
                             <div class="form-group col-md-6">
-                                <input asp-for="UserEmail" type="text"  class="form-control" id="InputEmail" placeholder="Your Email" required>
+                                <input asp-for="UserEmail" type="text" class="form-control" id="InputEmail" placeholder="Your Email" required>
                                 <span asp-validation-for="UserEmail" class="text-danger"></span>
                             </div>
 
                             <div class="form-group col-md-12">
-                                <input asp-for="Subject" type="text"  class="form-control" id="InputWeb" placeholder="Email Subject" required>
+                                <input asp-for="Subject" type="text" class="form-control" id="InputWeb" placeholder="Subject Title" required>
                                 <span asp-validation-for="Subject" class="text-danger"></span>
 
                             </div>
                             <div class="form-group col-md-12">
-                                <textarea asp-for="Message" class="form-control" id="InputMessage" rows="8" placeholder="Message" required> </textarea>
+                                <textarea asp-for="Message" class="form-control" id="InputMessage" rows="8" placeholder="Please write your message..." required> </textarea>
                                 <span asp-validation-for="Message" class="text-danger"></span>
                             </div>
 
                             @*<input asp-for="SendDate" type="datetime" value="@DateTime.Now" id="datetime" style="display:none"/>*@
 
                             <div class="col-md-12">
-                                <input type="submit" value="Send Email" class="btn normal-btn dart-btn-xs" />
+                                <input type="submit" value="Send" class="btn normal-btn dart-btn-xs" />
                             </div>
 
                         </form>
@@ -153,49 +159,49 @@
 
 
 @*<h4>ContactUs</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="ID" class="control-label"></label>
-                <input asp-for="ID" class="form-control" />
-                <span asp-validation-for="ID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SenderName" class="control-label"></label>
-                <input asp-for="SenderName" class="form-control" />
-                <span asp-validation-for="SenderName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Message" class="control-label"></label>
-                <input asp-for="Message" class="form-control" />
-                <span asp-validation-for="Message" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Subject" class="control-label"></label>
-                <input asp-for="Subject" class="form-control" />
-                <span asp-validation-for="Subject" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UserEmail" class="control-label"></label>
-                <input asp-for="UserEmail" class="form-control" />
-                <span asp-validation-for="UserEmail" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SendDate" class="control-label"></label>
-                <input asp-for="SendDate" class="form-control" />
-                <span asp-validation-for="SendDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="ID" class="control-label"></label>
+                    <input asp-for="ID" class="form-control" />
+                    <span asp-validation-for="ID" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="SenderName" class="control-label"></label>
+                    <input asp-for="SenderName" class="form-control" />
+                    <span asp-validation-for="SenderName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Message" class="control-label"></label>
+                    <input asp-for="Message" class="form-control" />
+                    <span asp-validation-for="Message" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Subject" class="control-label"></label>
+                    <input asp-for="Subject" class="form-control" />
+                    <span asp-validation-for="Subject" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="UserEmail" class="control-label"></label>
+                    <input asp-for="UserEmail" class="form-control" />
+                    <span asp-validation-for="UserEmail" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="SendDate" class="control-label"></label>
+                    <input asp-for="SendDate" class="form-control" />
+                    <span asp-validation-for="SendDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>*@
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>*@
 

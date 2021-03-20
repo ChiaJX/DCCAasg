@@ -40,6 +40,7 @@ namespace Sportswear.Views.Admin
         public async Task<IActionResult> registerStaff(registerStaff user)
         {
             
+
             if (ModelState.IsValid)
             {
 
@@ -103,7 +104,8 @@ namespace Sportswear.Views.Admin
             SportswearUser user = await userManager.FindByIdAsync(id);
             if (user != null)
             {
-                user.Email = email;
+                //user.Email = email;
+                //user.UserName = email;
                 user.userRole = userrole;
 
                 IdentityResult result = await userManager.UpdateAsync(user);

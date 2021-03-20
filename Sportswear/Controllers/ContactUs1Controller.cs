@@ -49,8 +49,9 @@ namespace Sportswear.Views.ContactUs
         }
 
         // GET: ContactUs/Create
-        public IActionResult Create()
+        public IActionResult Create(String msg = null)
         {
+            ViewBag.msg = msg;
             return View();
         }
 
@@ -66,7 +67,7 @@ namespace Sportswear.Views.ContactUs
                 contactUs.SendDate = DateTime.Now;
                 _context.Add(contactUs);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Create","ContactUs1", new { msg = "Message Sent!" });
             }
             return View(contactUs);
         }
