@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Sportswear.Controllers
 {
@@ -6,6 +7,12 @@ namespace Sportswear.Controllers
     {
 
         int quantity = 1;
+        private readonly ICosmosDbService _cosmosDbService;
+
+        public ProductController(ICosmosDbService cosmosDbService)
+        {
+            _cosmosDbService = cosmosDbService;
+        }
 
         public IActionResult Index()
         {
@@ -13,17 +20,12 @@ namespace Sportswear.Controllers
             return View();
         }
 
-        public IActionResult productDetails(string productName)
+        public IActionResult productDetails(string productId)
         {
-            ViewBag.productName = productName;
+            ViewBag.productId = productId;
             return View();
         }
 
-        public IActionResult addQuantity(string productName)
-        {
-            ViewBag.productName = productName;
-            return View();
-        }
 
         public IActionResult manageQuantity(string function)
         {
@@ -38,6 +40,23 @@ namespace Sportswear.Controllers
                     quantity--;
                     ViewBag.quantity = quantity;
                 }
+            }
+            return View();
+        }
+
+        public async Task<ActionResult> DetailsAsync(string id)
+        {
+            return View(await _cosmosDbService.GetItemAsync(id));
+        }
+
+        public IActionResult addToCart()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+
+            } else
+            {
+                Redire
             }
             return View();
         }

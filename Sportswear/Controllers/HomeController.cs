@@ -17,10 +17,7 @@ namespace Sportswear.Controllers
 
         public IActionResult Index()
         {
-<<<<<<< HEAD
-=======
             return View();
->>>>>>> testingbranch
         }
 
         public IActionResult Privacy()
@@ -40,7 +37,7 @@ namespace Sportswear.Controllers
 
         public IActionResult viewCart()
         {
-            return View("~/Views/Cart/ViewCart.cshtml");
+            return View();
         }
         
         public IActionResult AdminPanel()

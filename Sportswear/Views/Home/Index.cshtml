@@ -1,6 +1,6 @@
 ﻿<link rel="stylesheet" href="~/css/main.css" />
 
-@model Sportswear.Models.ProductEntity
+@model IEnumerable<Sportswear.Models.Product>
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -19,7 +19,6 @@
                  src="https://d2i5t58cb8fkm0.cloudfront.net/wp-content/uploads/2019/08/21135107/nikeredux-1200x630.jpg"
                  alt="First slide">
             <div class="carousel-caption">
-                <!-- TODO: change info -->
                 <h1>Sportswear.</h1>
                 <p>SWEAT IN STYLE</p>
                 <p><a class="btn btn-lg btn-primary" asp-action="aboutUs">About Us</a></p>
@@ -56,15 +55,16 @@
         </div>
         <div class="row">
 
-            <!--@if (Model.Value != null)
-    {
-        foreach (var item in Model.Value)
-        {-->
+            @if (Model != null)
+            {
+                foreach (var item in Model)
+                {
             <div class="col-4">
                 <div class="card product-card" type="button">
-                    <a class="deco-none" asp-controller="Product" asp-action="productDetails" asp-route-productName="productName">
+                    <a class="deco-none" asp-controller="Product" asp-action="DetailsAsync" 
+                       asp-route-productId="@Html.DisplayFor(modelItem => item.Id)">
                         <div class="img-container">
-                            <img class="product-img" src="productImgUrl" />
+                            <img class="product-img" src="@Html.DisplayFor(modelItem => item.ImageURL)" />
 
                             <div class="mask">
                                 <div class="view-text w-100">
@@ -74,10 +74,10 @@
                         </div>
 
                         <div class="card-body">
-                            <p class="card-text" id="product-title"> productName</p>
+                            <p class="card-text" id="product-title"> @Html.DisplayFor(modelItem => item.Name)</p>
                             <div class="d-flex justify-content-between align-items-center">
-                                <p class="card-text" id="product-price"> productPrice</p>
-                                <small class="text-muted">Dogs Sneakers</small>
+                                <p class="card-text" id="product-price"> RM @Html.DisplayFor(modelItem => item.Price)</p>
+                                <small class="text-muted">@Html.DisplayFor(modelItem => item.Category)</small>
                             </div>
                         </div>
                     </a>

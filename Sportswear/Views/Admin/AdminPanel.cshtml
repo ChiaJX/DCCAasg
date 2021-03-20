@@ -1,41 +1,20 @@
-﻿@model IEnumerable<Sportswear.Areas.Identity.Data.SportswearUser> 
+﻿@model IEnumerable<Sportswear.Areas.Identity.Data.SportswearUser>
 @{
     ViewData["Title"] = "Admin Panel Page";
 }
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Sportswear.</title>
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
 
-    
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-</head>
 
-<style>
-
-    #title{
-        margin-bottom:10px;
-    }
-
-    #create-btn {
-        margin-top: 10px;
-        float: right;
-    }
-
-</style>
-
-@if(ViewBag.msg!= null)
+@if (ViewBag.msg != null)
 {
     <script>alert("@ViewBag.msg");</script>
 }
 <div class="container">
-    <h1 id="title"> Staff List  <button class="btn btn-light" id="create-btn" ><a asp-action="registerStaff"> Create </a>  </button></h1>
+    <h1 id="title"> 
+        Staff List  
+        <button class="btn btn-light" id="create-btn">
+            <a asp-action="registerStaff"> Create </a>
+        </button>
+    </h1>
     <hr />
     <table id="example" class="table table-striped table-bordered" style="width:100%">
         <thead>
@@ -48,7 +27,7 @@
                 <!--More column headings-->
             </tr>
         </thead>
-            
+
 
         <tbody>
             @foreach (Sportswear.Areas.Identity.Data.SportswearUser user in Model)
@@ -72,12 +51,12 @@
 
 
             @*<td>@item.PropertyName</td>
-        @foreach (var item in Model.MyCollection)
-        {
-            <tr>
-                <td>@item.PropertyName</td>
-            </tr>
-        }*@
+                @foreach (var item in Model.MyCollection)
+                {
+                    <tr>
+                        <td>@item.PropertyName</td>
+                    </tr>
+                }*@
         </tbody>
         <!--Add footer for totals-->
     </table>
@@ -97,5 +76,18 @@
 
 
     </script>*@
+
+
+<style>
+
+    #title {
+        margin-bottom: 10px;
+    }
+
+    #create-btn {
+        margin-top: 10px;
+        float: right;
+    }
+</style>
 
 

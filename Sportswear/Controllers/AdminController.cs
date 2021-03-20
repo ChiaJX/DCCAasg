@@ -36,8 +36,6 @@ namespace Sportswear.Views.Admin
         [HttpPost]
         public async Task<IActionResult> registerStaff(registerStaff user)
         {
-            
-
             if (ModelState.IsValid)
             {
 
