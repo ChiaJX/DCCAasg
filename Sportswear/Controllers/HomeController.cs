@@ -18,14 +18,6 @@ namespace Sportswear.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        //string StorageName = "Enter your storage name";
-        //string StorageKey = "Enter the storage key";
-        //string TableName = "CraneMachineMaterialUsage()";
-        string AccessKey = "WACOy6+vQaT1XXsPzIK3oe1cl0EWcv3C3J4wJU82nW12V6HxlbSKoFx4QRqG1nRzBIhKXikEtkEve8bVwf4F2A==";
-        string StorageName = "sportsweartp050653";
-        string TableName = "ProductTable";
-
-
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
@@ -33,10 +25,6 @@ namespace Sportswear.Controllers
 
         public IActionResult Index()
         {
-            string jsonData;
-            AzureTables.GetAllEntity(StorageName, AccessKey, TableName, out jsonData);
-            ProductEntity productEntity = JsonConvert.DeserializeObject<ProductEntity>(jsonData);
-            return View(productEntity);
         }
 
         public IActionResult Privacy()
