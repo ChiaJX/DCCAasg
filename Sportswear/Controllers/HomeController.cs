@@ -49,9 +49,14 @@ namespace Sportswear.Controllers
             return View();
         }
 
+        public IActionResult viewProduct()
+        {
+            return new RedirectResult(Url.Action("Index") + "#product-container");
+        } 
+
         public IActionResult productDetails(string productName)
         {
-            ViewBag.message = "====>"+ productName + "<========";
+            ViewBag.productName = productName;
             return View();
         }
 

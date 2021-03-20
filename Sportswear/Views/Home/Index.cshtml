@@ -47,67 +47,81 @@
 </div>
 
 
-<div class="container mt-3">
-    <div class="row">
-        <div class="col text-center my-4"><h1>Products</h1></div>
-    </div>
-    <div class="row">
+<section id="product-container">
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col text-center my-4"><h1>Products</h1></div>
+        </div>
+        <div class="row">
 
-        @if (Model.Value != null)
-        {
-            foreach (var item in Model.Value)
+            @if (Model.Value != null)
             {
-                <div class="col-4">
-                    <div class="card product-card" type="button">
-                        <a class="deco-none" asp-action="productDetails" asp-route-productName="@item.productName">
-                            <div class="img-container">
-                                <img class="product-img" src="@item.productImgUrl" />
+                foreach (var item in Model.Value)
+                {
+                    <div class="col-4">
+                        <div class="card product-card" type="button">
+                            <a class="deco-none" asp-action="productDetails" asp-route-productName="@item.productName">
+                                <div class="img-container">
+                                    <img class="product-img" src="@item.productImgUrl" />
 
-                                <div class="mask">
-                                    <div class="view-text w-100">
-                                        View Product
+                                    <div class="mask">
+                                        <div class="view-text w-100">
+                                            View Product
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="card-body">
-                                <p class="card-text" id="product-title"> @item.productName</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <p class="card-text" id="product-price"> @item.productPrice</p>
-                                    <small class="text-muted">Dogs Sneakers</small>
+                                <div class="card-body">
+                                    <p class="card-text" id="product-title"> @item.productName</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <p class="card-text" id="product-price"> @item.productPrice</p>
+                                        <small class="text-muted">Dogs Sneakers</small>
+                                    </div>
                                 </div>
-                            </div>
-                        </a>
+                            </a>
+                        </div>
                     </div>
-                </div>
+                }
             }
-        }
         </div>
     </div>
+</section>
 
 
 
+<style>
+    .mask {
+        position: absolute;
+        top: auto !important;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        opacity: 0;
+        overflow: hidden;
+        transition: .5s ease;
+        background-attachment: fixed;
+        background-color: rgba(0, 0, 0, 0.6);
+    }
 
-    <style>
-        a {
+    a {
+        color: inherit;
+        text-decoration: inherit;
+    }
+
+        a:link {
             color: inherit;
             text-decoration: inherit;
         }
 
-            a:link {
-                color: inherit;
-                text-decoration: inherit;
-            }
-
-            a:hover {
-                color: inherit;
-                text-decoration: inherit;
-            }
-
-        .mask > .view-text {
-            margin-top: 0.15em;
-            margin-bottom: 0.15em;
-            color: white;
-            text-align: center;
+        a:hover {
+            color: inherit;
+            text-decoration: inherit;
         }
-    </style>
+
+    .mask > .view-text {
+        margin-top: 0.15em;
+        margin-bottom: 0.15em;
+        color: white;
+        text-align: center;
+    }
+</style>

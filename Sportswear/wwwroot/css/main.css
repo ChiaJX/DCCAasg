@@ -52,20 +52,6 @@
     backface-visibility: hidden;
 }
 
-.mask {
-    position: absolute;
-    top: 90%;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    opacity: 0;
-    overflow: hidden;
-    transition: .5s ease;
-    background-attachment: fixed;
-    background-color: rgba(0, 0, 0, 0.6);
-}
-
-
 .img-container:hover .mask {
     opacity: 1;
 }
@@ -91,3 +77,9 @@ a {
         color: inherit;
         text-decoration: inherit;
     }
+
+
+/* view Product */
+.view-pdtocart.btn {
+    background: black;
+}
