@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Sportswear.Models;
 using System.Threading.Tasks;
 
 namespace Sportswear.Controllers
@@ -26,6 +27,11 @@ namespace Sportswear.Controllers
         }
 
         Product getProductById(string id)
+        {
+
+        }
+
+        void addProductToCartList(Product product)
         {
 
         }
