@@ -12,6 +12,15 @@ namespace Sportswear.Areas.Identity.Data
         //[PersonalData]
         //public string UserName { get; set; }
 
+        [PersonalData]
+        public string FullName { get; set; }
+
+        [PersonalData]
+        public DateTime DOB { get; set; }
+
+        [PersonalData]
+        public string Address { get; set; }
+
         //[PersonalData]
         //public string Email { get; set; }
 

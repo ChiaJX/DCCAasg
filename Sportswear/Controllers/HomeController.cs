@@ -3,21 +3,26 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Sportswear.Models;
 using System.Diagnostics;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace Sportswear.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly ICosmosDbService _cosmosDbService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ICosmosDbService cosmosDbService, ILogger<HomeController> logger)
         {
+            _cosmosDbService = cosmosDbService;
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            IEnumerable<Product> test = await _cosmosDbService.GetItemsAsync("SELECT * FROM c");
+            return View(test);
         }
 
         public IActionResult Privacy()
@@ -49,11 +54,16 @@ namespace Sportswear.Controllers
         {
             return View();
         }
-
-/*        public IActionResult AboutUs()
+        public async Task<ActionResult> DetailsAsync(string id)
         {
-            return View();
-        }*/
+            return View(await _cosmosDbService.GetItemAsync(id));
+        }
+
+
+        /*        public IActionResult AboutUs()
+                {
+                    return View();
+                }*/
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

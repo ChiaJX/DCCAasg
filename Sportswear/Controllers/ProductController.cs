@@ -16,7 +16,6 @@ namespace Sportswear.Controllers
 
         public IActionResult Index()
         {
-            ViewBag.quantity = quantity;
             return View();
         }
 
@@ -44,17 +43,13 @@ namespace Sportswear.Controllers
             return View();
         }
 
-        public async Task<ActionResult> DetailsAsync(string id)
-        {
-            return View(await _cosmosDbService.GetItemAsync(id));
-        }
-
         public IActionResult addToCart()
         {
             if (User.Identity.IsAuthenticated)
             {
-                //TODO: head to payment gateway
-                return RedirectToPage(Payment);
+                //TODO: head to payment
+                //return RedirectToPage(Payment);
+                return RedirectToRoute("/Account/Login");
             } else
             {
                 return RedirectToRoute("/Account/Login");

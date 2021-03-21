@@ -20,46 +20,54 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div id="navbar" class="navbar-collapse collapse pt-1">
-                    @foreach (Sportswear.Areas.Identity.Data.SportswearUser user in Model)
+                    @if (Model != null)
                     {
+                        @foreach (Sportswear.Areas.Identity.Data.SportswearUser user in Model)
+                        {
+                            <ul class="navbar-nav mr-auto">
+                                <li class="nav-item active">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                                </li>
+                                @if (user.userRole == "Admin")
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="ContactUs1" asp-action="Index">Customer Feedback</a>
+                                    </li>
+                                }
+                                else if (user.userRole == "Staff")
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Index">Manage Product</a>
+                                    </li>
+
+                                }
+                            </ul>
+                            <ul class="navbar-nav ml-auto">
+                                @if (user.userRole == "Admin")
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="AdminPanel">Admin</a>
+                                    </li>
+                                }
+                                <partial name="_LoginPartial" />
+                            </ul>
+                        }
+                    } else { 
                         <ul class="navbar-nav mr-auto">
-                            <li class="nav-item active">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        <li class="nav-item active">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="AboutUs">About Us</a>
                             </li>
-                            @if (user.userRole == "Admin")
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="ContactUs1" asp-action="Index">Customer Feedback</a>
-                                </li>
-                            }
-                            else if (user.userRole == "Staff")
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Index">Manage Product</a>
-                                </li>
-
-                            }
-                            else
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="AboutUs">About Us</a>
-                                </li>
-                                <li>
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="ContactUs1" asp-action="Create">Contact Us</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="FAQ">FAQ</a>
-                                </li>
-                            }
-
+                            <li>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="ContactUs1" asp-action="Create">Contact Us</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="FAQ">FAQ</a>
+                            </li>
                         </ul>
                         <ul class="navbar-nav ml-auto">
-                            @if (user.userRole == "Admin")
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="AdminPanel">Admin</a>
-                                </li>
-                            }
                             <li class="nav-item pb-1">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="viewCart">
                                     <svg width="20" height="20" fill="currentColor" class="bi bi-bag-fill" viewBox="0 0 16 16">

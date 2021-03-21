@@ -35,20 +35,18 @@ namespace Sportswear.Controllers
             return container;
         }
 
-
-        public Boolean uploadSingleFile(string imgName, string imgLocation)
+        public Boolean uploadFile(string imgName, string imgLocation)
         {
-
             CloudBlobContainer container = getBlobStorageInformation();
-
-            CloudBlockBlob blobitem = container.GetBlockBlobReference(imgName);
+            CloudBlockBlob blob = container.GetBlockBlobReference(imgName);
 
             using (var fileStream = System.IO.File.OpenRead(imgLocation))
             {
-                blobitem.UploadFromStreamAsync(fileStream).Wait();
+                blob.UploadFromStreamAsync(fileStream).Wait();
             }
             return true;
         }
+
 
 
         public ActionResult listing(string message = null)

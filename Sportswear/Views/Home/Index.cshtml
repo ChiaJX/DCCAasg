@@ -61,8 +61,7 @@
                 {
             <div class="col-4">
                 <div class="card product-card" type="button">
-                    <a class="deco-none" asp-controller="Product" asp-action="DetailsAsync" 
-                       asp-route-productId="@Html.DisplayFor(modelItem => item.Id)">
+                    <a class="deco-none" asp-controller="Home" asp-action="DetailsAsync" asp-route-productId="new { id = item.Id }">
                         <div class="img-container">
                             <img class="product-img" src="@Html.DisplayFor(modelItem => item.ImageURL)" />
 
