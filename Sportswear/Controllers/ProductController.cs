@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Sportswear.Models;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace Sportswear.Controllers
 {
@@ -9,6 +11,8 @@ namespace Sportswear.Controllers
 
         int quantity = 1;
         private readonly ICosmosDbService _cosmosDbService;
+
+        List<Product> cartItem = new List<Product>();
 
         public ProductController(ICosmosDbService cosmosDbService)
         {
@@ -26,14 +30,16 @@ namespace Sportswear.Controllers
             return View();
         }
 
-        Product getProductById(string id)
+        async Task<Product> getProductByIdAsync(string id)
         {
-
+            List<Product> productList = (await _cosmosDbService.GetItemsAsync("SELECT * FROM c")).ToList();
+            return productList.Find(a => a.Id == id);
+            
         }
 
         void addProductToCartList(Product product)
         {
-
+            cartItem.Add(product);
         }
 
 
