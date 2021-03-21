@@ -41,6 +41,9 @@ namespace Sportswear.Views.Admin
 
                 SportswearUser webUser = new SportswearUser
                 {
+                    FullName = user.FullName,
+                    DOB = user.DOB,
+                    Address = user.Address,
                     UserName = user.Email,
                     Email = user.Email,
                     userRole = user.Role,

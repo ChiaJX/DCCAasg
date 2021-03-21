@@ -360,3 +360,5 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/Sportswear/Migrations/SportswearNew/20210321082118_transactionTable.cs
+/Sportswear/Migrations/SportswearNew/20210321082118_transactionTable.Designer.cs
