@@ -5,6 +5,7 @@ using Sportswear.Models;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Sportswear.Controllers
 {
@@ -21,7 +22,7 @@ namespace Sportswear.Controllers
 
         public async Task<IActionResult> Index()
         {
-            IEnumerable<Product> test = await _cosmosDbService.GetItemsAsync("SELECT * FROM c");
+            List<Product> test = (await _cosmosDbService.GetItemsAsync("SELECT * FROM c")).ToList();
             return View(test);
         }
 
