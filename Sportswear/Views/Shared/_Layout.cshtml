@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@using Sportswear.Areas.Identity.Data
+
+@inject SignInManager<SportswearUser> SignInManager
+@inject UserManager<SportswearUser> UserManager
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -18,7 +24,75 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div id="navbar" class="navbar-collapse collapse pt-1">
-                    @await  Component.InvokeAsync("NavBar", new { })
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        var user = from m in UserManager.Users
+                                   where m.Id.Equals(UserManager.GetUserId(User))
+                                   select m.userRole;
+
+                        foreach (string userRole in user)
+                        {
+                            <ul class="navbar-nav mr-auto">
+                                <li class="nav-item active">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                                </li>
+                                @if (userRole == "Admin")
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="ContactUs1" asp-action="Index">Customer Feedback</a>
+                                    </li>
+                                }
+                                else if (userRole == "Staff")
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Index">Manage Product</a>
+                                    </li>
+
+                                }
+                            </ul>
+                            <ul class="navbar-nav ml-auto">
+                                @if (userRole == "Admin")
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="AdminPanel">Admin</a>
+                                    </li>
+                                }
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Transactions" asp-action="Index">Order History</a>
+                                </li>
+                                <partial name="_LoginPartial" />
+                            </ul>
+                        }
+                    }
+                    else
+                    {
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="AboutUs">About Us</a>
+                    </li>
+                    <li>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="ContactUs1" asp-action="Create">Contact Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="FAQ">FAQ</a>
+                    </li>
+                </ul>
+                                <ul class="navbar-nav ml-auto">
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Transactions" asp-action="Index">Order History</a>
+                                    </li>
+                                    <li class="nav-item pb-1">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="viewCart">
+                                            <svg width="20" height="20" fill="currentColor" class="bi bi-bag-fill" viewBox="0 0 16 16">
+                                                <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z" />
+                                            </svg>
+                                        </a>
+                                    </li>
+                                    <partial name="_LoginPartial" />
+                                </ul>}
                 </div>
             </nav>
         </div>
