@@ -27,6 +27,9 @@
                     <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="AdminPanel">Admin</a>
                 </li>
             }
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Transactions" asp-action="Index">Order History</a>
+            </li>
             <partial name="_LoginPartial" />
         </ul>
     }
@@ -48,6 +51,9 @@ else
         </li>
     </ul>
     <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Transactions" asp-action="Index">Order History</a>
+        </li>
         <li class="nav-item pb-1">
             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="viewCart">
                 <svg width="20" height="20" fill="currentColor" class="bi bi-bag-fill" viewBox="0 0 16 16">

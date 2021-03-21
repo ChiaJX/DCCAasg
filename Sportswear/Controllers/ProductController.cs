@@ -34,7 +34,6 @@ namespace Sportswear.Controllers
         {
             List<Product> productList = (await _cosmosDbService.GetItemsAsync("SELECT * FROM c")).ToList();
             return productList.Find(a => a.Id == id);
-            
         }
 
         void addProductToCartList(Product product)
