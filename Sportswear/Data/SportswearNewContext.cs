@@ -13,7 +13,9 @@ namespace Sportswear.Data
             : base(options)
         {
         }
-
+      
         public DbSet<Sportswear.Models.ContactUs> ContactUs { get; set; }
+
+        public DbSet<Sportswear.Models.Transaction> Transaction { get; set; }
     }
 }
