@@ -3,16 +3,16 @@ using Sportswear.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
+using System;
 
 namespace Sportswear.Controllers
 {
     public class ProductController : Controller
     {
 
-        int quantity = 1;
         private readonly ICosmosDbService _cosmosDbService;
-
-        List<Product> cartItem = new List<Product>();
+        Dictionary<Product, double> cartItem = new Dictionary<Product, double>() { };
+        Product selectedProd;
 
         public ProductController(ICosmosDbService cosmosDbService)
         {
@@ -26,8 +26,11 @@ namespace Sportswear.Controllers
 
         public IActionResult productDetails(string productId)
         {
+            ViewBag.quantity = "1";
             ViewBag.productId = productId;
-            return View();
+            ViewBag.message = null;
+            selectedProd = getProductByIdAsync(productId).Result;
+            return View(selectedProd);
         }
 
         async Task<Product> getProductByIdAsync(string id)
@@ -36,40 +39,35 @@ namespace Sportswear.Controllers
             return productList.Find(a => a.Id == id);
         }
 
-        void addProductToCartList(Product product)
+
+        public IActionResult addQuantity(string quantity)
         {
-            cartItem.Add(product);
+            int qty = int.Parse(quantity);
+            qty++;
+            ViewBag.quantity = qty.ToString();
+            return View(ViewBag.quantity);
         }
 
-
-        public IActionResult manageQuantity(string function)
+        void addToCartList()
         {
-            if(function == "add")
-            {
-                quantity++;
-                ViewBag.quantity = quantity;
-            } else
-            {
-                if(quantity > 1)
-                {
-                    quantity--;
-                    ViewBag.quantity = quantity;
-                }
-            }
-            return View();
+            cartItem.Add(selectedProd, selectedProd.Price);
+            ViewBag.message = "Added to Cart.";
         }
 
-        public IActionResult addToCart()
+        public Dictionary<Product, double> getCartItem()
         {
-            if (User.Identity.IsAuthenticated)
+            return cartItem;
+        }
+
+        public IActionResult decQuantity(string quantity)
+        {
+            int qty = int.Parse(quantity);
+            if (qty > 1)
             {
-                //TODO: head to payment
-                //return RedirectToPage(Payment);
-                return RedirectToRoute("/Account/Login");
-            } else
-            {
-                return RedirectToRoute("/Account/Login");
+                qty--;
+                ViewBag.quantity = qty.ToString();
             }
+            return View(ViewBag.quantity);
         }
     }
 }

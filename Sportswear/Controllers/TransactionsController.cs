@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Sportswear.Controllers;
 using Sportswear.Data;
 using Sportswear.Models;
 
@@ -13,6 +14,8 @@ namespace Sportswear.Views.Transactions
     public class TransactionsController : Controller
     {
         private readonly SportswearNewContext _context;
+        ProductController prod;
+        Dictionary<Product, double> cart = new Dictionary<Product, double>() { };
 
         public TransactionsController(SportswearNewContext context)
         {
@@ -46,13 +49,26 @@ namespace Sportswear.Views.Transactions
         // GET: Transactions/Create
         public IActionResult Create()
         {
-            /*foreach (price in ProductArray)
+            var cart = new Dictionary<Product, double>() { };
+            if (prod.getCartItem() == null)
             {
-                price += price;
+                cart = prod.getCartItem();
+                double TotalPrice = 0;
+                ViewBag.ite = cart.Count - 1;
 
-            }*/
-            ViewBag.TotalPrice = 100;
+                for (int i = 0; i < cart.Count; i++)
+                {
+                    TotalPrice += cart.ElementAt(i).Value;
+                }
+                ViewBag.TotalPrice = TotalPrice;
+
+            } else
+            {
+                ViewBag.TotalPrice = 0;
+            }
+
             ViewBag.GrandTotalPrice = ViewBag.TotalPrice + 20;
+
             return View();
         }
 
