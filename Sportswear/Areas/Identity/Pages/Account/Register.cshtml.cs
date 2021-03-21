@@ -104,6 +104,7 @@ namespace Sportswear.Areas.Identity.Pages.Account
                 var user = new SportswearUser {
                     FullName = Input.FullName,
                     DOB = Input.DOB,
+                    Address = Input.Address,
                     UserName = Input.Email, Email = Input.Email, EmailConfirmed = true};
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
