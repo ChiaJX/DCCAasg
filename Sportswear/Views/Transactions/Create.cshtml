@@ -1,0 +1,202 @@
+﻿@model Sportswear.Models.Transaction
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/whiteBg.css" />
+
+<div class="container">
+    <div class="mt-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb p-0 mt-5">
+                <li class="breadcrumb-item">
+                    <a asp-controller="Home" asp-action="Index">Home</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Cart</li>
+            </ol>
+        </nav>
+        <h1 class="mt-1">MY CART</h1>
+    </div>
+</div>
+
+<div class="pb-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 p-5 bg-white rounded shadow-sm mb-5">
+
+                <!-- Shopping cart table -->
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="border-0 bg-light">
+                                    <div class="p-2 px-3 text-uppercase">Product</div>
+                                </th>
+                                <th scope="col" class="border-0 bg-light">
+                                    <div class="py-2 text-uppercase">Price</div>
+                                </th>
+                                <th scope="col" class="border-0 bg-light">
+                                    <div class="py-2 text-uppercase">Quantity</div>
+                                </th>
+                                <th scope="col" class="border-0 bg-light">
+                                    <div class="py-2 text-uppercase">Remove</div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row" class="border-0">
+                                    <div class="p-2">
+                                        <!--PRODUCT IMAGE-->
+                                        <img src="https://res.cloudinary.com/mhmd/image/upload/v1556670479/product-1_zrifhn.jpg" alt="" width="70" class="img-fluid rounded shadow-sm">
+                                        <div class="ml-3 d-inline-block align-middle">
+                                            <h5 class="mb-0">
+                                                <a href="#" class="text-dark d-inline-block align-middle">Poduct Name</a>
+                                            </h5><span class="text-muted font-weight-normal font-italic d-block">Product Category</span>
+                                        </div>
+                                    </div>
+                                </th>
+                                <td class="border-0 align-middle"><strong>RM ProductPrice</strong></td>
+                                <td class="border-0 align-middle"><strong>Product Quantity</strong></td>
+                                <td class="border-0 align-middle"><a href="#" class="text-dark"><i class="fa fa-trash"></i></a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <form asp-action="Create">
+            <div class="row py-5 p-4 bg-white rounded shadow-sm">
+                <div class="form-group">
+                    <label asp-for="userAddress" class="control-label"></label>
+                    <input asp-for="userAddress" class="form-control" />
+                    <span asp-validation-for="userAddress" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="userPhone" class="control-label"></label>
+                    <input asp-for="userPhone" class="form-control" />
+                    <span asp-validation-for="userPhone" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row py-5 p-4 bg-white rounded shadow-sm">
+                <div class="col-lg-6">
+                    <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Coupon code</div>
+                    <div class="p-4">
+                        <p class="font-italic mb-4">If you have a coupon code, please enter it in the box below</p>
+                        <div class="input-group mb-4 border rounded-pill p-2">
+                            <input type="text" placeholder="Apply coupon" aria-describedby="button-addon3" class="form-control border-0" asp-for="couponId">
+                            <div class="input-group-append border-0">
+                                <button id="button-addon3" type="button" class="btn btn-dark px-4 rounded-pill">
+                                    <i class="fa fa-gift mr-2"></i>Apply coupon
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Instructions for seller</div>
+                    <div class="p-4">
+                        <p class="font-italic mb-4">If you have some information for the seller you can leave them in the box below</p>
+                        <textarea name="" cols="30" rows="2" class="form-control" asp-for="message"></textarea>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Order summary </div>
+                    <div class="p-4">
+                        <p class="font-italic mb-4">Our company does not provide free shipping promotion.</p>
+                        <ul class="list-unstyled mb-4">
+                            <li class="d-flex justify-content-between py-3 border-bottom">
+                                <strong class="text-muted">Order Subtotal </strong>
+                                <strong>RM @ViewBag.TotalPrice</strong>
+                            </li>
+                            <li class="d-flex justify-content-between py-3 border-bottom">
+                                <strong class="text-muted">Shipping</strong><strong>RM 20.00</strong>
+                            </li>
+                            <li class="d-flex justify-content-between py-3 border-bottom">
+                                <strong class="text-muted">Total</strong>
+                                <h5 class="font-weight-bold" asp-for="price">RM @ViewBag.GrandTotalPrice</h5>
+                            </li>
+
+                        </ul>
+                        <div class="col-md-12">
+                            <input type="submit" value="Send" class="btn btn-dark rounded-pill py-2 btn-block black-border"
+                                    placeholder="Procceed to checkout" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+@*
+    <h1>Create</h1>
+
+    <h4>Transaction</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="userId" class="control-label"></label>
+                    <input asp-for="userId" class="form-control" />
+                    <span asp-validation-for="userId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="userAddress" class="control-label"></label>
+                    <input asp-for="userAddress" class="form-control" />
+                    <span asp-validation-for="userAddress" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="userPhone" class="control-label"></label>
+                    <input asp-for="userPhone" class="form-control" />
+                    <span asp-validation-for="userPhone" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="orderId" class="control-label"></label>
+                    <input asp-for="orderId" class="form-control" />
+                    <span asp-validation-for="orderId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="product" class="control-label"></label>
+                    <input asp-for="product" class="form-control" />
+                    <span asp-validation-for="product" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="couponId" class="control-label"></label>
+                    <input asp-for="couponId" class="form-control" />
+                    <span asp-validation-for="couponId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="message" class="control-label"></label>
+                    <input asp-for="message" class="form-control" />
+                    <span asp-validation-for="message" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="price" class="control-label"></label>
+                    <input asp-for="price" class="form-control" />
+                    <span asp-validation-for="price" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TransactionDateTime" class="control-label"></label>
+                    <input asp-for="TransactionDateTime" class="form-control" />
+                    <span asp-validation-for="TransactionDateTime" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+*@
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
