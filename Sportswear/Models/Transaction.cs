@@ -20,9 +20,9 @@ namespace Sportswear.Models
         public string orderId { get; set; }
         [Required]
         public string product { get; set; }
-        [Required]
+        
         public string couponId { get; set; }
-        [Required]
+        
         public string message { get; set; }
         [Required]
         //[Range(1, 100, ErrorMessage = "Price entered must be within 1 to 100")]
