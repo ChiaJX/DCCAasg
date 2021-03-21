@@ -73,7 +73,11 @@ namespace Sportswear
                 endpoints.MapControllerRoute(
                    name: "cart",
                    pattern: "{controller=Cart}/{action=Index}/{id?}");
-              
+
+                endpoints.MapControllerRoute(
+                   name: "transaction",
+                   pattern: "{controller=Transactions}/{action=Index}/{id?}");
+
                 endpoints.MapRazorPages();
 
             });

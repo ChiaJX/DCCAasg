@@ -17,71 +17,69 @@
 
 
 <div class="container mt-5">
-    <div class="row">
+    <div class="row h-600">
 
-        <div class="col-6">
+        <div class="col-lg-6 col-md-6 col-sm-6">
             <img src="@Html.DisplayFor(model => model.ImageURL)"
                  alt="@Html.DisplayFor(model => model.Name)"
-                 class="product-image" />
+                 class="product-image img-responsive fit-image" />
         </div>
 
 
-        <div class="col-6">
+        <div class="col-lg-6 col-md-6 col-sm-6 p-5">
 
             <div class="row view-pdname">
-                <div class="col-12">
+                <div class="col-lg-12 col-md-12 col-sm-12 py-3">
                     <h1>@Html.DisplayFor(model => model.Name)</h1>
                 </div>
             </div>
 
             <div class="row view-pdcat">
-                <div class="col-12">
+                <div class="col-lg-12 col-md-12 col-sm-12">
                     <span class="monospaced"> @Html.DisplayFor(model => model.Category)</span>
                 </div>
             </div>
 
             <div class="row view-pdcat-desc">
-                <div class="col-12">
+                <div class="col-lg-12 col-md-12 col-sm-12">
                     <p class="description">
                         @Html.DisplayFor(model => model.Description)
                     </p>
                 </div>
             </div>
 
-            <div class="row view-pdprice">
-                <div class="col-12 bottom-rule">
-                    <h2 class="product-price">@Html.DisplayFor(model => model.Price)</h2>
+            <div class="row view-pdprice py-3">
+                <div class="col-lg-12 col-md-12 col-sm-12 bottom-rule">
+                    <h2 class="product-price">RM @Html.DisplayFor(model => model.Price)</h2>
                 </div>
             </div>
 
-            <div class="row add-to-cart view-pdtocart">
-                <div class="col-5 product-qty">
-                    <span class="btn btn-default btn-lg btn-qty no-border" asp-route-minus="manageQuantity">
-                        <svg width="18" height="18" viewBox="0 0 24 24">
-                            <path d="M0 10h24v4h-24z" />
-                        </svg>
-                    </span>
-                    <input class="black-border btn-qty text-center" value="@ViewBag.quantity" />
-                    <span class="btn btn-default btn-lg btn-qty no-border" asp-route-add="manageQuantity">
-                        <svg width="24" height="24" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
-                            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
-                        </svg>
-                    </span>
+            <div class="row add-to-cart view-pdtocart py-5">
+                <div class="col-lg-5 col-md-5 col-sm-5 product-qty">
+                    <!--<span class="btn btn-default btn-lg btn-qty no-border" asp-action="decQuantity" asp-route-quantity="@(ViewBag.quantity)">
+            <svg width="18" height="18" viewBox="0 0 24 24">
+                <path d="M0 10h24v4h-24z" />
+            </svg>
+        </span>-->
+                    <input type="text" id="quantity" name="quantity" class="black-border btn-qty text-center" value="@(ViewBag.quantity ?? String.Empty)"
+                           disabled />
+                    <!--<span class="btn btn-default btn-lg btn-qty no-border" asp-action="addQuantity" asp-route-quantity="@(ViewBag.quantity)">
+            <svg width="24" height="24" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+            </svg>
+        </span>-->
                 </div>
 
-                <div class="col-4">
-                    <button class="btn black-border btn-lg btn-brand btn-full-width" asp-action="addToCart">
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                    <button class="btn black-border btn-lg btn-brand btn-full-width" asp-action="addToCartList">
                         Add to Cart
                     </button>
                 </div>
+                @if (ViewBag.message != null)
+                {
+                    <div> @ViewBag.message </div>
+                }
             </div>
-
-            <div class="row">
-                <div class="col-4 text-center">
-                    <span class="monospaced">In Stock</span>
-                </div>
-            </div>
-
         </div>
     </div>
 </div>

@@ -14,6 +14,8 @@ namespace Sportswear.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly ICosmosDbService _cosmosDbService;
 
+        Dictionary<Product, double> cartItem = new Dictionary<Product, double>() { };
+
         public HomeController(ICosmosDbService cosmosDbService, ILogger<HomeController> logger)
         {
             _cosmosDbService = cosmosDbService;
@@ -38,11 +40,6 @@ namespace Sportswear.Controllers
         public IActionResult viewProduct()
         {
             return new RedirectResult(Url.Action("Index") + "#view-product");
-        }
-
-        public IActionResult viewCart()
-        {
-            return View();
         }
         
         public IActionResult AdminPanel()
