@@ -25,6 +25,11 @@ namespace Sportswear.Controllers
             return View();
         }
 
+        Product getProductById(string id)
+        {
+
+        }
+
 
         public IActionResult manageQuantity(string function)
         {

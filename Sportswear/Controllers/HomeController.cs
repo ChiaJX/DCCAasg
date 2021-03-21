@@ -54,16 +54,7 @@ namespace Sportswear.Controllers
         {
             return View();
         }
-        public async Task<ActionResult> DetailsAsync(string id)
-        {
-            return View(await _cosmosDbService.GetItemAsync(id));
-        }
 
-
-        /*        public IActionResult AboutUs()
-                {
-                    return View();
-                }*/
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
