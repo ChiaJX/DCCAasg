@@ -37,7 +37,7 @@ namespace Sportswear.Controllers
 
         public IActionResult viewCart()
         {
-            return View("~/Views/Cart/ViewCart.cshtml");
+            return View();
         }
         
         public IActionResult AdminPanel()

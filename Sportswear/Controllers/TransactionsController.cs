@@ -46,6 +46,13 @@ namespace Sportswear.Views.Transactions
         // GET: Transactions/Create
         public IActionResult Create()
         {
+            /*foreach (price in ProductArray)
+            {
+                price += price;
+
+            }*/
+            ViewBag.TotalPrice = 100;
+            ViewBag.GrandTotalPrice = ViewBag.TotalPrice + 20;
             return View();
         }
 
@@ -58,6 +65,10 @@ namespace Sportswear.Views.Transactions
         {
             if (ModelState.IsValid)
             {
+                var rand = new Random();
+                transaction.TransactionDateTime = DateTime.Now;
+                transaction.userId = rand.Next(100000, 1000000).ToString();
+                transaction.orderId = transaction.TransactionDateTime + transaction.userId; 
                 _context.Add(transaction);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

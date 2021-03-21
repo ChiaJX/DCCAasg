@@ -27,6 +27,7 @@ namespace Sportswear.Models
         [Required]
         //[Range(1, 100, ErrorMessage = "Price entered must be within 1 to 100")]
         public decimal price { get; set; }
+
         [Required]
         public DateTime TransactionDateTime { get; set; }
 
