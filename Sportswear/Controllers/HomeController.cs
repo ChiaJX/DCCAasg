@@ -22,8 +22,7 @@ namespace Sportswear.Controllers
 
         public async Task<IActionResult> Index()
         {
-            List<Product> test = (await _cosmosDbService.GetItemsAsync("SELECT * FROM c")).ToList();
-            return View(test);
+            return View(await _cosmosDbService.GetItemsAsync("SELECT * FROM c"));
         }
 
         public IActionResult Privacy()
