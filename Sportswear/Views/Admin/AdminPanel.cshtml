@@ -41,8 +41,8 @@
                         <td>@user.userRole</td>
                         @*<th>on hold</th>*@
                         <td>
-                            <a class="btn btn-sm btn-primary" asp-action="updateStaff" asp-route-id="@user.Id">Update</a>
-                            <a class="btn btn-sm btn-warning" asp-action="deleteStaff" asp-route-id="@user.Id">Delete</a>
+                            <a class="btn btn-sm btn-primary" style ="margin-right:5px;margin-bottom:5px;" asp-action="updateStaff" asp-route-id="@user.Id">Update</a>
+                            <a class="btn btn-sm btn-warning" style ="margin-bottom:5px;" asp-action="deleteStaff" asp-route-id="@user.Id">Delete</a>
                         </td>
                     </tr>
                 }
