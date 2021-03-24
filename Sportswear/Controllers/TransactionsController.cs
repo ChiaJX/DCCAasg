@@ -19,8 +19,8 @@ namespace Sportswear.Views.Transactions
         private readonly SportswearNewContext _context;
         private readonly ICosmosDbService _cosmosDbService;
 
-        private SignInManager<SportswearUser> SignInManager;
-        private UserManager<SportswearUser> UserManager;
+        private readonly SignInManager<SportswearUser> _SignInManager;
+        private readonly UserManager<SportswearUser> _UserManager;
 
         Product prod;
 
@@ -155,13 +155,18 @@ namespace Sportswear.Views.Transactions
                 transactionId = getTransactionByStatus.transactionId.ToString();
             }
 
-            if (SignInManager.IsSignedIn(User))
+            if (_SignInManager.IsSignedIn(User))
             {
-                var user = from m in UserManager.Users
-                           where m.Id.Equals(UserManager.GetUserId(User))
+                var user = from m in _UserManager.Users
+                           where m.Id.Equals(_UserManager.GetUserId(User))
                            select m.Id;
-            }
 
+                foreach (string Id in user)
+                {
+                    Debug.WriteLine("user ID : " + Id);
+                }
+            }
+            
             List<Transaction> transactionList = _context.Transaction.ToList();
             List<Product> productList = new List<Product>();
             List<string> productNameList = new List<string>();
