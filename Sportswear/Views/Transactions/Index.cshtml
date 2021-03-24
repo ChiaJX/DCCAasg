@@ -1,4 +1,9 @@
 ﻿@model IEnumerable<Sportswear.Models.Transaction>
+@using Microsoft.AspNetCore.Identity
+@using Sportswear.Areas.Identity.Data
+
+@inject SignInManager<SportswearUser> SignInManager
+@inject UserManager<SportswearUser> UserManager
 
 @{
     ViewData["Title"] = "Index";
@@ -6,82 +11,97 @@
 }
 
 <div class="container">
-    <h4>Transaction History</h4>
-    <p>
-        <a asp-action="Create">Create New</a>
-    </p>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.userId)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.userAddress)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.userPhone)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.orderId)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.product)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.couponId)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.message)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.price)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.TransactionDateTime)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.userId)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.userAddress)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.userPhone)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.orderId)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.product)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.couponId)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.message)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.price)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.TransactionDateTime)
-                    </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.transactionId">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.transactionId">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.transactionId">Delete</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    <h4>Transaction/Order History</h4>
+    @if (SignInManager.IsSignedIn(User))
+    {
+        var user = from m in UserManager.Users
+                   where m.Id.Equals(UserManager.GetUserId(User))
+                   select m.userRole;
 
+        foreach (string userRole in user)
+        {
+            if (userRole == "Staff" || userRole == "Admin")
+            {
+                <p>
+                    <a asp-action="Create">Create New</a>
+                </p>
+            }
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.userId)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.userAddress)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.userPhone)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.orderId)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.product)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.couponId)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.message)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.price)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.TransactionDateTime)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.userId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.userAddress)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.userPhone)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.orderId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.product)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.couponId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.message)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.price)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TransactionDateTime)
+                        </td>
+                        @if (userRole == "Staff" || userRole == "Admin")
+                        {
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.transactionId">Edit</a> |
+                                <a asp-action="Details" asp-route-id="@item.transactionId">Details</a> |
+                                <a asp-action="Delete" asp-route-id="@item.transactionId">Delete</a>
+                            </td>
+                        }
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    }
 </div>
