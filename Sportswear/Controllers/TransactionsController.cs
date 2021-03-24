@@ -37,20 +37,22 @@ namespace Sportswear.Views.Transactions
         // GET: Transactions
         public async Task<IActionResult> Index()
         {
-            if (_SignInManager.IsSignedIn(User))
-            {
-                var user = from m in _UserManager.Users
-                           where m.Id.Equals(_UserManager.GetUserId(User))
-                           select m.Id;
+            return View(await _context.Transaction.ToListAsync());
 
-                foreach (string Id in user)
-                {
-                    return _context.Transaction.Find(e => e.userId == Id);
-                }
-            } else
-            {
-                return View(await _context.Transaction.ToListAsync());
-            }
+            //if (_SignInManager.IsSignedIn(User))
+            //{
+            //    var user = from m in _UserManager.Users
+            //               where m.Id.Equals(_UserManager.GetUserId(User))
+            //               select m.Id;
+
+            //    foreach (string Id in user)
+            //    {
+            //        return _context.Transaction.FindAsync(e => e.userId == Id);
+            //    }
+            //} else
+            //{
+            //    return View(await _context.Transaction.ToListAsync());
+            //}
         }
 
         // GET: Transactions/Details/5
