@@ -7,6 +7,8 @@ using System;
 using System.Diagnostics;
 using Sportswear.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using Sportswear.Areas.Identity.Data;
 
 namespace Sportswear.Controllers
 {
@@ -17,12 +19,19 @@ namespace Sportswear.Controllers
         Product selectedProd;
         static volatile public string productID, productName;
         static volatile public string productPrice;
+        static volatile public string userID;
+
+        private readonly SignInManager<SportswearUser> _SignInManager;
+        private readonly UserManager<SportswearUser> _UserManager;
 
 
-        public ProductController(ICosmosDbService cosmosDbService, SportswearNewContext context)
+        public ProductController(ICosmosDbService cosmosDbService, SportswearNewContext context,
+            UserManager<SportswearUser> usrMgr, SignInManager<SportswearUser> signinMgr)
         {
             _cosmosDbService = cosmosDbService;
             _context = context;
+            _UserManager = usrMgr;
+            _SignInManager = signinMgr;
         }
 
         public IActionResult Index()
@@ -50,16 +59,30 @@ namespace Sportswear.Controllers
         }
 
 
-        /*        public void addToCart()
-                {
-                    Create();
-                    ViewBag.message = "Added to Cart.";
-                }
-        */
 
         //check if order exists? edit : create 
         public async Task<IActionResult> addToCart([Bind("transactionId,userId,userAddress,userPhone,orderId,product,couponId,message,price,TransactionDateTime,status")] Transaction transaction)
         {
+
+            if (_SignInManager.IsSignedIn(User))
+            {
+                var user = from m in _UserManager.Users
+                           where m.Id.Equals(_UserManager.GetUserId(User))
+                           select m.Id;
+
+                foreach (string Id in user)
+                {
+                    userID = Id;
+                    Debug.WriteLine("user ID : " + Id);
+                }
+                transaction.userId = userID;
+
+            } else
+            {
+                var rand = new Random();
+                transaction.userId = rand.Next(100000, 1000000).ToString();
+            }
+
             //gettransaction，need check also userId
             if (_context.Transaction.Count() > 0 || (_context.Transaction.Any(e => e.status == "unpaid")))
             {
@@ -70,7 +93,7 @@ namespace Sportswear.Controllers
                     transaction.product = getTransactionByStatus.product + "//" + productName;
                     transaction.price = getTransactionByStatus.price + decimal.Parse(productPrice);
                     transaction.TransactionDateTime = DateTime.Now;
-                    transaction.userId = getTransactionByStatus.userId;
+                    transaction.userId = userID;
                     transaction.orderId = getTransactionByStatus.orderId;
                     transaction.userAddress = getTransactionByStatus.userAddress;
                     transaction.userPhone = getTransactionByStatus.userPhone;
@@ -96,9 +119,7 @@ namespace Sportswear.Controllers
 
         public void createOrder([Bind("transactionId,userId,userAddress,userPhone,orderId,product,couponId,message,price,TransactionDateTime,status")] Transaction transaction)
         {
-            var rand = new Random();
             transaction.TransactionDateTime = DateTime.Now;
-            transaction.userId = rand.Next(100000, 1000000).ToString();
             transaction.orderId = transaction.TransactionDateTime + transaction.userId;
             transaction.userAddress = "0";
             transaction.userPhone = "0";

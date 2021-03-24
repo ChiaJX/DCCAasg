@@ -30,8 +30,8 @@ namespace Sportswear.Views.Transactions
         {
             _context = context;
             _cosmosDbService = cosmosDbService;
-            UserManager = usrMgr;
-            SignInManager = signinMgr;
+            _UserManager = usrMgr;
+            _SignInManager = signinMgr;
         }
 
         // GET: Transactions
@@ -251,10 +251,10 @@ namespace Sportswear.Views.Transactions
             {
                 try
                 {
-                    if (SignInManager.IsSignedIn(User))
+                    if (_SignInManager.IsSignedIn(User))
                     {
-                        var user = from m in UserManager.Users
-                                   where m.Id.Equals(UserManager.GetUserId(User))
+                        var user = from m in _UserManager.Users
+                                   where m.Id.Equals(_UserManager.GetUserId(User))
                                    select m.Id;
 
                         transaction.userId = user.ToString();
