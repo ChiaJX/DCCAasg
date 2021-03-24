@@ -10,7 +10,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container">
+<div class="container mt-3">
     <h4>Transaction/Order History</h4>
     @if (SignInManager.IsSignedIn(User))
     {
@@ -29,61 +29,79 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>
-                            @Html.DisplayNameFor(model => model.userId)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.userAddress)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.userPhone)
-                        </th>
+                        @if (userRole == "Staff" || userRole == "Admin")
+                        {
+                            <th>
+                                @Html.DisplayNameFor(model => model.userId)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.userAddress)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.userPhone)
+                            </th>
+                        }
+
                         <th>
                             @Html.DisplayNameFor(model => model.orderId)
                         </th>
                         <th>
                             @Html.DisplayNameFor(model => model.product)
                         </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.couponId)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.message)
-                        </th>
+
+                        @if (userRole == "Staff" || userRole == "Admin")
+                        {
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.couponId)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.message)
+                            </th>
+                        }
                         <th>
                             @Html.DisplayNameFor(model => model.price)
                         </th>
                         <th>
                             @Html.DisplayNameFor(model => model.TransactionDateTime)
                         </th>
-                        <th></th>
+                        @if (userRole == "Staff" || userRole == "Admin")
+                        {
+                            <th>@Html.DisplayNameFor(model => model.status) </th>
+                        }
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var item in Model)
                     {
                     <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.userId)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.userAddress)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.userPhone)
-                        </td>
+                        @if (userRole == "Staff" || userRole == "Admin")
+                        {
+                            <td>
+                                @Html.DisplayFor(modelItem => item.userId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.userAddress)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.userPhone)
+                            </td>
+                        }
                         <td>
                             @Html.DisplayFor(modelItem => item.orderId)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.product)
                         </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.couponId)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.message)
-                        </td>
+                        @if (userRole == "Staff" || userRole == "Admin")
+                        {
+                            <td>
+                                @Html.DisplayFor(modelItem => item.couponId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.message)
+                            </td>
+                        }
                         <td>
                             @Html.DisplayFor(modelItem => item.price)
                         </td>
@@ -92,6 +110,8 @@
                         </td>
                         @if (userRole == "Staff" || userRole == "Admin")
                         {
+                            <td>@Html.DisplayFor(modelItem => item.status) </td>
+
                             <td>
                                 @*<a asp-action="Edit" asp-route-id="@item.transactionId">Edit</a> |*@
                                 <a asp-action="Details" asp-route-id="@item.transactionId">Details</a> |

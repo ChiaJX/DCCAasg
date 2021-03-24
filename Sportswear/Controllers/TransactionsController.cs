@@ -1,15 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
-using System.Dynamic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+using Sportswear.Areas.Identity.Data;
 using Microsoft.EntityFrameworkCore;
-using Sportswear.Controllers;
 using Sportswear.Data;
 using Sportswear.Models;
+
+using Microsoft.AspNetCore.Identity;
+using Sportswear.Areas.Identity.Data;
 
 namespace Sportswear.Views.Transactions
 {
@@ -17,18 +18,27 @@ namespace Sportswear.Views.Transactions
     {
         private readonly SportswearNewContext _context;
         private readonly ICosmosDbService _cosmosDbService;
+
+        private readonly SignInManager<SportswearUser> _SignInManager;
+        private readonly UserManager<SportswearUser> _UserManager;
+
         Product prod;
 
-        public TransactionsController(SportswearNewContext context, ICosmosDbService cosmosDbService)
+
+        public TransactionsController(SportswearNewContext context, ICosmosDbService cosmosDbService, 
+            UserManager<SportswearUser> usrMgr, SignInManager<SportswearUser> signinMgr)
         {
             _context = context;
             _cosmosDbService = cosmosDbService;
+            _UserManager = usrMgr;
+            _SignInManager = signinMgr;
         }
 
         // GET: Transactions
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Transaction.ToListAsync());
+
+                return View(await _context.Transaction.ToListAsync());
         }
 
         // GET: Transactions/Details/5
@@ -146,6 +156,18 @@ namespace Sportswear.Views.Transactions
                 transactionId = getTransactionByStatus.transactionId.ToString();
             }
 
+            if (_SignInManager.IsSignedIn(User))
+            {
+                var user = from m in _UserManager.Users
+                           where m.Id.Equals(_UserManager.GetUserId(User))
+                           select m.Id;
+
+                foreach (string Id in user)
+                {
+                    Debug.WriteLine("user ID : " + Id);
+                }
+            }
+            
             List<Transaction> transactionList = _context.Transaction.ToList();
             List<Product> productList = new List<Product>();
             List<string> productNameList = new List<string>();
@@ -176,11 +198,8 @@ namespace Sportswear.Views.Transactions
 
                     foreach (var name in pNameList)
                     {
-                        if (!productList.Contains(getProductByNameAsync(name).Result))
-                        {
-                            productList.Add(getProductByNameAsync(name).Result);
-                            Debug.WriteLine("Result : " + productList);
-                        }
+                        productList.Add(getProductByNameAsync(name).Result);
+                        Debug.WriteLine("Result : " + productList);
                     }
                     TotalPrice = item.price;
                 }
@@ -233,6 +252,14 @@ namespace Sportswear.Views.Transactions
             {
                 try
                 {
+                    if (_SignInManager.IsSignedIn(User))
+                    {
+                        var user = from m in _UserManager.Users
+                                   where m.Id.Equals(_UserManager.GetUserId(User))
+                                   select m.Id;
+
+                        transaction.userId = user.ToString();
+                    }
                     transaction.status = "paid";
                     _context.Update(transaction);
                     await _context.SaveChangesAsync();
@@ -248,9 +275,9 @@ namespace Sportswear.Views.Transactions
                         throw;
                     }
                 }
-                return RedirectToAction (nameof(Index));
+
             }
-            return View(transaction);
+            return RedirectToAction("Index");
         }
 
 
