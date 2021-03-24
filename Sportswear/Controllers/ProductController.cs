@@ -50,13 +50,6 @@ namespace Sportswear.Controllers
         }
 
 
-        /*        public void addToCart()
-                {
-                    Create();
-                    ViewBag.message = "Added to Cart.";
-                }
-        */
-
         //check if order exists? edit : create 
         public async Task<IActionResult> addToCart([Bind("transactionId,userId,userAddress,userPhone,orderId,product,couponId,message,price,TransactionDateTime,status")] Transaction transaction)
         {
