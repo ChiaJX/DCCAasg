@@ -20,12 +20,12 @@
 
         foreach (string userRole in user)
         {
-            if (userRole == "Staff" || userRole == "Admin")
+            @*if (userRole == "Staff" || userRole == "Admin")
             {
                 <p>
                     <a asp-action="Create">Create New</a>
                 </p>
-            }
+            }*@
             <table class="table">
                 <thead>
                     <tr>
@@ -93,7 +93,7 @@
                         @if (userRole == "Staff" || userRole == "Admin")
                         {
                             <td>
-                                <a asp-action="Edit" asp-route-id="@item.transactionId">Edit</a> |
+                                @*<a asp-action="Edit" asp-route-id="@item.transactionId">Edit</a> |*@
                                 <a asp-action="Details" asp-route-id="@item.transactionId">Details</a> |
                                 <a asp-action="Delete" asp-route-id="@item.transactionId">Delete</a>
                             </td>
