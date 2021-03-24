@@ -248,7 +248,7 @@ namespace Sportswear.Views.Transactions
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction (nameof(Index));
             }
             return View(transaction);
         }
