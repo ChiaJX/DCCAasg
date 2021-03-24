@@ -75,11 +75,11 @@
                     @foreach (var item in Model)
                     {
                     <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.userId)
-                        </td>
                         @if (userRole == "Staff" || userRole == "Admin")
                         {
+                            <td>
+                                @Html.DisplayFor(modelItem => item.userId)
+                            </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.userAddress)
                             </td>
