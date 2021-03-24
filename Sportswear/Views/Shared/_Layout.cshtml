@@ -55,6 +55,17 @@
                             </li>
 
                         }
+                        else{
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="AboutUs">About Us</a>
+                            </li>
+                            <li>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="ContactUs1" asp-action="Create">Contact Us</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="FAQ">FAQ</a>
+                            </li>
+                        }
                     </ul>
                             <ul class="navbar-nav ml-auto">
                                 @if (userRole == "Admin")
