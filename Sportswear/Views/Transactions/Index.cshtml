@@ -16,9 +16,9 @@
     {
         var user = from m in UserManager.Users
                    where m.Id.Equals(UserManager.GetUserId(User))
-                   select m.userRole;
+                   select m;
 
-        foreach (string userRole in user)
+        foreach (Sportswear.Areas.Identity.Data.SportswearUser currentUser in user)
         {
             @*if (userRole == "Staff" || userRole == "Admin")
             {
@@ -29,11 +29,12 @@
             <table class="table">
                 <thead>
                     <tr>
-                        @if (userRole == "Staff" || userRole == "Admin")
+                        <th>
+                            @Html.DisplayNameFor(model => model.userId)
+                        </th>
+                        @if (currentUser.userRole == "Staff" || currentUser.userRole == "Admin")
                         {
-                            <th>
-                                @Html.DisplayNameFor(model => model.userId)
-                            </th>
+
                             <th>
                                 @Html.DisplayNameFor(model => model.userAddress)
                             </th>
@@ -49,7 +50,7 @@
                             @Html.DisplayNameFor(model => model.product)
                         </th>
 
-                        @if (userRole == "Staff" || userRole == "Admin")
+                        @if (currentUser.userRole == "Staff" || currentUser.userRole == "Admin")
                         {
 
                             <th>
@@ -65,7 +66,7 @@
                         <th>
                             @Html.DisplayNameFor(model => model.TransactionDateTime)
                         </th>
-                        @if (userRole == "Staff" || userRole == "Admin")
+                        @if (currentUser.userRole == "Staff" || currentUser.userRole == "Admin")
                         {
                             <th>@Html.DisplayNameFor(model => model.status) </th>
                         }
@@ -75,11 +76,14 @@
                     @foreach (var item in Model)
                     {
                     <tr>
-                        @if (userRole == "Staff" || userRole == "Admin")
+                        @if (currentUser.Id == item.userId)
                         {
-                            <td>
-                                @Html.DisplayFor(modelItem => item.userId)
-                            </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.userId)
+                        </td>
+                        }
+                        @if (currentUser.userRole == "Staff" || currentUser.userRole == "Admin")
+                        {
                             <td>
                                 @Html.DisplayFor(modelItem => item.userAddress)
                             </td>
@@ -87,13 +91,17 @@
                                 @Html.DisplayFor(modelItem => item.userPhone)
                             </td>
                         }
+                        else if (currentUser.Id == item.userId)
+                        {
+
                         <td>
                             @Html.DisplayFor(modelItem => item.orderId)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.product)
                         </td>
-                        @if (userRole == "Staff" || userRole == "Admin")
+                        }
+                        @if (currentUser.userRole == "Staff" || currentUser.userRole == "Admin")
                         {
                             <td>
                                 @Html.DisplayFor(modelItem => item.couponId)
@@ -102,13 +110,17 @@
                                 @Html.DisplayFor(modelItem => item.message)
                             </td>
                         }
+                        else if (currentUser.Id == item.userId)
+                        {
+
                         <td>
                             @Html.DisplayFor(modelItem => item.price)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.TransactionDateTime)
                         </td>
-                        @if (userRole == "Staff" || userRole == "Admin")
+                        }
+                        @if (currentUser.userRole == "Staff" || currentUser.userRole == "Admin")
                         {
                             <td>@Html.DisplayFor(modelItem => item.status) </td>
 
