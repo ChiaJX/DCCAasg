@@ -212,6 +212,38 @@ namespace Sportswear.Views.Transactions
             return RedirectToAction("Create", new { msg = "Item deleted!" });
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> checkout(int id, [Bind("transactionId,userId,userAddress,userPhone,orderId,product,couponId,message,price,TransactionDateTime,status")] Transaction transaction)
+        {
+            if (id != transaction.transactionId)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(transaction);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!TransactionExists(transaction.transactionId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(transaction);
+        }
+
 
         //GET: product by Name
         async Task<Product> getProductByNameAsync(string name)
