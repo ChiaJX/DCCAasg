@@ -1,4 +1,9 @@
 ﻿@model Sportswear.Models.Transaction
+@using Microsoft.AspNetCore.Identity
+@using Sportswear.Areas.Identity.Data
+
+@inject SignInManager<SportswearUser> SignInManager
+@inject UserManager<SportswearUser> UserManager
 
 @{
     ViewData["Title"] = "Create";
@@ -43,8 +48,8 @@
                                     <div class="py-2 text-uppercase">Price</div>
                                 </th>
                                 @*<th scope="col" class="border-0 bg-light">
-                                    <div class="py-2 text-uppercase">Quantity</div>
-                                </th>
+                                        <div class="py-2 text-uppercase">Quantity</div>
+                                    </th>
                                 *@
                                 <th scope="col" class="border-0 bg-light">
                                     <div class="py-2 text-uppercase">Remove</div>
@@ -70,9 +75,9 @@
                                         </th>
                                         <td class="border-0 align-middle"><strong>RM @item.Price</strong></td>
                                         @*<td class="border-0 align-middle">
-                                            <strong> @ViewBag.qty </strong>
-                                        </td>
-                                         *@
+                                                <strong> @ViewBag.qty </strong>
+                                            </td>
+                                        *@
                                         <td class="border-0 align-middle">
                                             <a asp-controller="Transactions" asp-action="deleteItem"
                                                asp-route-productName="@item.Name" class="text-dark">
@@ -147,11 +152,22 @@
                             </li>
 
                         </ul>
+
                         <div class="col-md-12">
-                            <input type="submit" class="btn btn-dark rounded-pill py-2 btn-block black-border"
-                                   value="Checkout" />
+                            <p class="font-italic mb-4">Please ensure you are logged in as an user before checkout.</p>
+
+                            @if (SignInManager.IsSignedIn(User))
+                            {
+                                <input type="submit" class="btn btn-dark rounded-pill py-2 btn-block black-border"
+                                       value="Checkout" />
+                            }
+                            else
+                            {
+                                <input type="submit" class="btn btn-dark rounded-pill py-2 btn-block black-border"
+                                       value="Checkout" id="login" asp-area="Identity" asp-page="/Account/Login" />
+                            }
+
                         </div>
-                    </div>
                 </div>
             </div>
         </form>
