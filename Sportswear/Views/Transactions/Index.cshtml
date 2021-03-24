@@ -76,50 +76,62 @@
                     @foreach (var item in Model)
                     {
                     <tr>
-                        @if (currentUser.Id == item.userId)
+
+                        @if (currentUser.userRole == null)
                         {
-                        <td>
-                            @Html.DisplayFor(modelItem => item.userId)
-                        </td>
+                            @if (currentUser.Id == item.userId)
+                            {
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.userId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.orderId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.product)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.price)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TransactionDateTime)
+                                </td>
+                            }
                         }
-                        @if (currentUser.userRole == "Staff" || currentUser.userRole == "Admin")
+                        else if (currentUser.userRole == "Admin" || currentUser.userRole == "Staff")
                         {
+                            <td>
+                                @Html.DisplayFor(modelItem => item.userId)
+                            </td>
+
                             <td>
                                 @Html.DisplayFor(modelItem => item.userAddress)
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.userPhone)
                             </td>
-                        }
-                        else if (currentUser.Id == item.userId)
-                        {
 
-                        <td>
-                            @Html.DisplayFor(modelItem => item.orderId)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.product)
-                        </td>
-                        }
-                        @if (currentUser.userRole == "Staff" || currentUser.userRole == "Admin")
-                        {
+                            <td>
+                                @Html.DisplayFor(modelItem => item.orderId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.product)
+                            </td>
+
                             <td>
                                 @Html.DisplayFor(modelItem => item.couponId)
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.message)
                             </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.price)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TransactionDateTime)
+                            </td>
                         }
-                        else if (currentUser.Id == item.userId)
-                        {
-
-                        <td>
-                            @Html.DisplayFor(modelItem => item.price)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.TransactionDateTime)
-                        </td>
-                        }
+                        
                         @if (currentUser.userRole == "Staff" || currentUser.userRole == "Admin")
                         {
                             <td>@Html.DisplayFor(modelItem => item.status) </td>
