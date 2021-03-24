@@ -61,9 +61,11 @@ namespace Sportswear.Controllers
                 if (getTransactionByStatus.product == null || getTransactionByStatus.product == "")
                 {
                     transaction.product = productName;
+                    Debug.WriteLine("PRODUCT = " + transaction.product);
                 } else
                 {
-                    transaction.product = getTransactionByStatus.product.TrimStart('/') + "//" + productName;
+                    transaction.product = getTransactionByStatus.product + "//" + productName;
+                    Debug.WriteLine("PRODUCT = " + transaction.product);
                 }
                 transaction.price = getTransactionByStatus.price + decimal.Parse(productPrice);
                 transaction.TransactionDateTime = DateTime.Now;

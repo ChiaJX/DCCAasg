@@ -72,7 +72,7 @@ namespace Sportswear.Views.Transactions
                 if (item.transactionId.ToString() == transactionId)
                 {
                     Debug.WriteLine("prod name : " + item.product);
-                    item.product.ToString().TrimStart('/');
+                    item.product.ToString();
                     string[] pNameList = item.product.ToString().Split("//");
 
                     /*                    var qty = from name in pNameList
@@ -93,13 +93,13 @@ namespace Sportswear.Views.Transactions
                         if (!productList.Contains(getProductByNameAsync(name).Result))
                         {
                             productList.Add(getProductByNameAsync(name).Result);
-                            Debug.WriteLine("Result : " + getProductByNameAsync(name).Result);
+                            Debug.WriteLine("Result : " + productList);
                         }
                     }
                     TotalPrice = item.price;
                 }
             }
-
+            Debug.WriteLine("Result : " + productList);
             ViewBag.Products = productList;
             ViewBag.TotalPrice = TotalPrice;
             ViewBag.GrandTotalPrice = ViewBag.TotalPrice + 20;
@@ -195,26 +195,18 @@ namespace Sportswear.Views.Transactions
         {
             var getTransactionByStatus = await _context.Transaction.FirstOrDefaultAsync(m => m.status == "unpaid");
             List<string> productNameList = new List<string>();
-            string pName = "";
 
             var transaction = await _context.Transaction.FindAsync(getTransactionByStatus.transactionId);
 
             Debug.WriteLine("prod name : " + productName);
             string[] pNameList = transaction.product.ToString().Split("//");
 
-            foreach (var name in pNameList)
+            pNameList = pNameList.Where(val => val != productName).ToArray(); //recreate an array without the removed element
+            foreach(string item in pNameList)
             {
-                if (name.Equals(productName))
-                {
-                    pNameList = pNameList.Where(val => val != name).ToArray(); //recreate an array without the removed element
-                    Debug.WriteLine("0: " + pNameList);
-                    pName = string.Join("//", pNameList);
-                    Debug.WriteLine("1: "+pNameList);
-                    pName.TrimStart('/');
-                    Debug.WriteLine("2: " + pNameList);
-                }
+                string pName = string.Join("//", item);
+                transaction.product = pName;
             }
-            transaction.product = pName;
             _context.Update(transaction);
             await _context.SaveChangesAsync();
             return RedirectToAction("Create", new { msg = "Item deleted!" });
