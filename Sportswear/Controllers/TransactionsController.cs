@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Dynamic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -14,12 +16,13 @@ namespace Sportswear.Views.Transactions
     public class TransactionsController : Controller
     {
         private readonly SportswearNewContext _context;
-        ProductController prod;
-        Dictionary<Product, double> cart = new Dictionary<Product, double>() { };
+        private readonly ICosmosDbService _cosmosDbService;
+        Product prod;
 
-        public TransactionsController(SportswearNewContext context)
+        public TransactionsController(SportswearNewContext context, ICosmosDbService cosmosDbService)
         {
             _context = context;
+            _cosmosDbService = cosmosDbService;
         }
 
         // GET: Transactions
@@ -47,50 +50,55 @@ namespace Sportswear.Views.Transactions
         }
 
         // GET: Transactions/Create
-        public IActionResult Create()
+        //Cart Page
+        public IActionResult Create(string transactionId)
         {
-            var cart = new Dictionary<Product, double>() { };
-            if (prod.getCartItem() == null)
-            {
-                cart = prod.getCartItem();
-                double TotalPrice = 0;
-                ViewBag.ite = cart.Count - 1;
+            List<Transaction> transactionList = _context.Transaction.ToList();
+            List<Product> productList = new List<Product>();
+            List<string> productNameList = new List<string>();
+            List<int> productQtyList = new List<int>();
+            ViewBag.prodNameList = productNameList;
+            decimal TotalPrice = 0;
 
-                for (int i = 0; i < cart.Count; i++)
+            foreach (var item in transactionList)
+            {
+                if(item.transactionId.ToString() == transactionId)
                 {
-                    TotalPrice += cart.ElementAt(i).Value;
-                }
-                ViewBag.TotalPrice = TotalPrice;
+                    Debug.WriteLine("prod name : " + item.product);
+                    string[] pNameList = item.product.ToString().Split("//");
 
-            } else
-            {
-                ViewBag.TotalPrice = 0;
+/*                    var qty = from name in pNameList
+                              group name by name into gP
+                              let count = gP.Count()
+                              orderby count descending
+                              select new { Value = gP.Key, Count = count };
+
+                    foreach (var name in qty)
+                    {
+                        productQtyList.Add(name.Count);
+                        Debug.WriteLine("Qty Result : " + productQtyList);
+                    }
+*/
+
+                    foreach (var name in pNameList)
+                    {
+                        if (!productList.Contains(getProductByNameAsync(name).Result))
+                        {
+                            productList.Add(getProductByNameAsync(name).Result);
+                            Debug.WriteLine("Result : " + getProductByNameAsync(name).Result);
+                        }
+                    }
+                    TotalPrice = item.price;
+                }
             }
 
+            ViewBag.Products = productList;
+            ViewBag.TotalPrice = TotalPrice;
             ViewBag.GrandTotalPrice = ViewBag.TotalPrice + 20;
 
             return View();
         }
 
-        // POST: Transactions/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("transactionId,userId,userAddress,userPhone,orderId,product,couponId,message,price,TransactionDateTime")] Transaction transaction)
-        {
-            if (ModelState.IsValid)
-            {
-                var rand = new Random();
-                transaction.TransactionDateTime = DateTime.Now;
-                transaction.userId = rand.Next(100000, 1000000).ToString();
-                transaction.orderId = transaction.TransactionDateTime + transaction.userId; 
-                _context.Add(transaction);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(transaction);
-        }
 
         // GET: Transactions/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -113,7 +121,7 @@ namespace Sportswear.Views.Transactions
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("transactionId,userId,userAddress,userPhone,orderId,product,couponId,message,price,TransactionDateTime")] Transaction transaction)
+        public async Task<IActionResult> Edit(int id, [Bind("transactionId,userId,userAddress,userPhone,orderId,product,couponId,message,price,TransactionDateTime,status")] Transaction transaction)
         {
             if (id != transaction.transactionId)
             {
@@ -172,6 +180,57 @@ namespace Sportswear.Views.Transactions
             return RedirectToAction(nameof(Index));
         }
 
+
+        public async Task<IActionResult> deleteItem(string transactionId, string productName)
+        {
+            List<Transaction> transactionList = _context.Transaction.ToList();
+            List<Product> productList = new List<Product>();
+            List<string> productNameList = new List<string>();
+
+            var transaction = await _context.Transaction.FindAsync(transactionId);
+
+            foreach (var item in transactionList)
+            {
+                if (item.transactionId.ToString() == transactionId)
+                {
+                    Debug.WriteLine("prod name : " + item.product);
+                    string[] pNameList = item.product.ToString().Split("//");
+
+                    foreach (var name in pNameList)
+                    {
+                        if (!productList.Contains(getProductByNameAsync(name).Result))
+                        {
+                            productList.Add(getProductByNameAsync(name).Result);
+                            Debug.WriteLine("Result : " + getProductByNameAsync(name).Result);
+                        }
+                    }
+                    TotalPrice = item.price;
+                }
+            }
+
+            ViewBag.Products = productList;
+            SportswearUser user = await userManager.FindByIdAsync(id);
+
+            if (user != null)
+            {
+                await userManager.DeleteAsync(user);
+            }
+            else
+            {
+                return RedirectToAction("AdminPanel", new { msg = "Fail to delete user" });
+            }
+            return RedirectToAction("AdminPanel", new { msg = "User deleted!" });
+        }
+
+
+        //GET: product by Name
+        async Task<Product> getProductByNameAsync(string name)
+        {
+            List<Product> productList = (await _cosmosDbService.GetItemsAsync("SELECT * FROM c")).ToList();
+            return productList.Find(a => a.Name == name);
+        }
+
+        //CHECK: transaction exists by id
         private bool TransactionExists(int id)
         {
             return _context.Transaction.Any(e => e.transactionId == id);

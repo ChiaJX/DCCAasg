@@ -8,6 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\SportswearNew\20210323162345_TransactionTable.cs" />
+    <Compile Remove="Migrations\SportswearNew\20210323162345_TransactionTable.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="Views\Shared\_Modal.cshtml" />
     <Content Remove="Views\Shared\_productModal.cshtml" />
   </ItemGroup>

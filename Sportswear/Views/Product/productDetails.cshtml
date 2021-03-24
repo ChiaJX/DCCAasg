@@ -56,24 +56,17 @@
 
             <div class="row add-to-cart view-pdtocart py-5">
                 <div class="col-lg-5 col-md-5 col-sm-5 product-qty">
-                    <!--<span class="btn btn-default btn-lg btn-qty no-border" asp-action="decQuantity" asp-route-quantity="@(ViewBag.quantity)">
-            <svg width="18" height="18" viewBox="0 0 24 24">
-                <path d="M0 10h24v4h-24z" />
-            </svg>
-        </span>-->
-                    <input type="text" id="quantity" name="quantity" class="black-border btn-qty text-center" value="@(ViewBag.quantity ?? String.Empty)"
-                           disabled />
-                    <!--<span class="btn btn-default btn-lg btn-qty no-border" asp-action="addQuantity" asp-route-quantity="@(ViewBag.quantity)">
-            <svg width="24" height="24" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
-                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
-            </svg>
-        </span>-->
+
+                    <input type="text" id="quantity" name="quantity" class="black-border btn-qty text-center" value="@(ViewBag.quantity ?? String.Empty)" />
                 </div>
 
-                <div class="col-lg-4 col-md-4 col-sm-4">
-                    <button class="btn black-border btn-lg btn-brand btn-full-width" asp-action="addToCartList">
-                        Add to Cart
-                    </button>
+                <div class="col-lg-4 col-md-4 col-sm-4 mt-0">
+                    <form>
+                        <button class="btn black-border btn-lg btn-brand btn-full-width" asp-action="addToCart">
+                            Add to Cart
+                        </button>
+                    </form>
+
                 </div>
                 @if (ViewBag.message != null)
                 {

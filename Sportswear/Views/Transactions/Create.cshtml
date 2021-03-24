@@ -46,38 +46,66 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row" class="border-0">
-                                    <div class="p-2">
-                                        <!--PRODUCT IMAGE-->
-                                        <img src="https://res.cloudinary.com/mhmd/image/upload/v1556670479/product-1_zrifhn.jpg" alt="" width="70" class="img-fluid rounded shadow-sm">
-                                        <div class="ml-3 d-inline-block align-middle">
-                                            <h5 class="mb-0">
-                                                <a href="#" class="text-dark d-inline-block align-middle">Poduct Name</a>
-                                            </h5><span class="text-muted font-weight-normal font-italic d-block">Product Category</span>
-                                        </div>
-                                    </div>
-                                </th>
-                                <td class="border-0 align-middle"><strong>RM ProductPrice</strong></td>
-                                <td class="border-0 align-middle"><strong>Product Quantity</strong></td>
-                                <td class="border-0 align-middle"><a href="#" class="text-dark"><i class="fa fa-trash"></i></a></td>
-                            </tr>
+                            @if (ViewBag.Products != null)
+                            {
+                                @foreach (var item in ViewBag.Products)
+                                {
+                                    <tr>
+                                        <th scope="row" class="border-0">
+                                            <div class="p-2">
+                                                <!--PRODUCT IMAGE-->
+                                                <img src="@item.ImageURL" alt="" width="70" class="img-fluid rounded shadow-sm">
+                                                <div class="ml-3 d-inline-block align-middle">
+                                                    <h5 class="mb-0">
+                                                        <a href="#" class="text-dark d-inline-block align-middle">@item.Name</a>
+                                                    </h5><span class="text-muted font-weight-normal font-italic d-block">@item.Category</span>
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <td class="border-0 align-middle"><strong>RM @item.Price</strong></td>
+                                        <td class="border-0 align-middle">
+                                            @foreach (var prod in ViewBag.prodNameList)
+                                            {
+                                                @if (item.Name == prod)
+                                                {
+
+                                                }
+                                            }
+                                            <strong> @ViewBag.qty </strong>
+                                        </td>
+                                        <td class="border-0 align-middle">
+                                            <a asp-controller="Transactions" asp-action="deleteItem" 
+                                               asp-route-productName="@item.name" asp-route-transactionId="@Model.transactionId" class="text-dark">
+                                                <svg width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                                    <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
+                                                </svg>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
-
+        <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Shipping Information</div>
         <form asp-action="Create">
             <div class="row py-5 p-4 bg-white rounded shadow-sm">
-                <div class="form-group">
-                    <label asp-for="userAddress" class="control-label"></label>
-                    <input asp-for="userAddress" class="form-control" />
-                    <span asp-validation-for="userAddress" class="text-danger"></span>
+                <div class="form-group col-lg-6">
+                    <label asp-for="userAddress" class="control-label">
+                        <strong class="text-muted">Shipping Address</strong>
+                    </label>
+                    <textarea rows="5" asp-for="userAddress" class="form-control" required>
+                    </textarea>
+                    <span asp-validation-for="userAddress" name="Shipping Address" class="text-danger"></span>
                 </div>
-                <div class="form-group">
-                    <label asp-for="userPhone" class="control-label"></label>
-                    <input asp-for="userPhone" class="form-control" />
+                <div class="form-group col-lg-6">
+                    <label asp-for="userPhone" class="control-label">
+                        <strong class="text-muted">Contact Number</strong>
+                    </label>
+                    <input asp-for="userPhone" class="form-control" required />
                     <span asp-validation-for="userPhone" class="text-danger"></span>
                 </div>
             </div>
@@ -115,13 +143,13 @@
                             </li>
                             <li class="d-flex justify-content-between py-3 border-bottom">
                                 <strong class="text-muted">Total</strong>
-                                <h5 class="font-weight-bold" asp-for="price">RM @ViewBag.GrandTotalPrice</h5>
+                                <h5 class="font-weight-bold" asp-for="price">RM @ViewBag.GrandTotalPrice
                             </li>
 
                         </ul>
                         <div class="col-md-12">
-                            <input type="submit" value="Send" class="btn btn-dark rounded-pill py-2 btn-block black-border"
-                                    placeholder="Procceed to checkout" />
+                            <input type="submit" class="btn btn-dark rounded-pill py-2 btn-block black-border"
+                                   value="Checkout" />
                         </div>
                     </div>
                 </div>

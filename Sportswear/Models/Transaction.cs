@@ -20,7 +20,7 @@ namespace Sportswear.Models
         public string orderId { get; set; }
         [Required]
         public string product { get; set; }
-        
+
         public string couponId { get; set; }
         
         public string message { get; set; }
@@ -30,6 +30,9 @@ namespace Sportswear.Models
 
         [Required]
         public DateTime TransactionDateTime { get; set; }
+
+        [Required]
+        public string status { get; set; }
 
     }
 }
