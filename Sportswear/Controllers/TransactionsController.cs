@@ -230,7 +230,14 @@ namespace Sportswear.Views.Transactions
             foreach(string item in pNameList)
             {
                 string pName = string.Join("//", item);
-                transaction.product = pName;
+                if (pName == "")
+                {
+                    Debug.WriteLine("EMPTY PRODUCT NAME LISTTT");
+                    transaction.product = "";
+                } else
+                {
+                    transaction.product = pName;
+                }
             }
             _context.Update(transaction);
             await _context.SaveChangesAsync();
@@ -277,7 +284,7 @@ namespace Sportswear.Views.Transactions
                 }
 
             }
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
 
 

@@ -61,32 +61,35 @@
                             {
                                 @foreach (var item in ViewBag.Products)
                                 {
-                                    <tr>
-                                        <th scope="row" class="border-0">
-                                            <div class="p-2">
-                                                <!--PRODUCT IMAGE-->
-                                                <img src="@item.ImageURL" width="70" class="img-fluid rounded shadow-sm">
-                                                <div class="ml-3 d-inline-block align-middle">
-                                                    <h5 class="mb-0">
-                                                        <a href="#" class="text-dark d-inline-block align-middle">@item.Name</a>
-                                                    </h5><span class="text-muted font-weight-normal font-italic d-block">@item.Category</span>
+                                    @if (item != null)
+                                    {
+                                        <tr>
+                                            <th scope="row" class="border-0">
+                                                <div class="p-2">
+                                                    <!--PRODUCT IMAGE-->
+                                                    <img src="@item.ImageURL" width="70" class="img-fluid rounded shadow-sm">
+                                                    <div class="ml-3 d-inline-block align-middle">
+                                                        <h5 class="mb-0">
+                                                            <a href="#" class="text-dark d-inline-block align-middle">@item.Name</a>
+                                                        </h5><span class="text-muted font-weight-normal font-italic d-block">@item.Category</span>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </th>
-                                        <td class="border-0 align-middle"><strong>RM @item.Price</strong></td>
-                                        @*<td class="border-0 align-middle">
-                                                <strong> @ViewBag.qty </strong>
+                                            </th>
+                                            <td class="border-0 align-middle"><strong>RM @item.Price</strong></td>
+                                            @*<td class="border-0 align-middle">
+                            <strong> @ViewBag.qty </strong>
+                        </td>
+                                            *@
+                                            <td class="border-0 align-middle">
+                                                <a asp-controller="Transactions" asp-action="deleteItem"
+                                                   asp-route-productName="@item.Name" class="text-dark">
+                                                    <svg width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                                        <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
+                                                    </svg>
+                                                </a>
                                             </td>
-                                        *@
-                                        <td class="border-0 align-middle">
-                                            <a asp-controller="Transactions" asp-action="deleteItem"
-                                               asp-route-productName="@item.Name" class="text-dark">
-                                                <svg width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
-                                                    <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
-                                                </svg>
-                                            </a>
-                                        </td>
-                                    </tr>
+                                        </tr>
+                                    }
                                 }
                             }
 

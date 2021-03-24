@@ -89,7 +89,7 @@ namespace Sportswear.Controllers
                 var getTransactionByStatus = await _context.Transaction.FirstOrDefaultAsync(m => m.status == "unpaid");
                 try
                 {
-                    Debug.WriteLine("edit table2");
+                    
                     transaction.product = getTransactionByStatus.product + "//" + productName;
                     transaction.price = getTransactionByStatus.price + decimal.Parse(productPrice);
                     transaction.TransactionDateTime = DateTime.Now;
