@@ -225,6 +225,7 @@ namespace Sportswear.Views.Transactions
             {
                 try
                 {
+                    transaction.status = "paid";
                     _context.Update(transaction);
                     await _context.SaveChangesAsync();
                 }

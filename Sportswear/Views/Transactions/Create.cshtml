@@ -152,22 +152,22 @@
                             </li>
 
                         </ul>
-                        @if (SignInManager.IsSignedIn(User))
-                        {
-                            <div class="col-md-12">
+
+                        <div class="col-md-12">
+                            <p class="font-italic mb-4">Please ensure you are logged in as an user before checkout.</p>
+
+                            @if (SignInManager.IsSignedIn(User))
+                            {
                                 <input type="submit" class="btn btn-dark rounded-pill py-2 btn-block black-border"
                                        value="Checkout" />
-                            </div>
-                        }
-                        else
-                        {
-                            <div class="col-md-12">
-                                <input class="btn btn-dark rounded-pill py-2 btn-block black-border"
-                                       value="Checkout" asp-area="Identity" asp-page="/Account/Login" />
-                            </div>
-                        }
+                            }
+                            else
+                            {
+                                <input type="submit" class="btn btn-dark rounded-pill py-2 btn-block black-border"
+                                       value="Checkout" id="login" asp-area="Identity" asp-page="/Account/Login" />
+                            }
 
-                    </div>
+                        </div>
                 </div>
             </div>
         </form>
