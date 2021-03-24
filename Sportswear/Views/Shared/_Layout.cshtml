@@ -31,27 +31,31 @@
 
                         foreach (string userRole in user)
                         {
-                            <ul class="navbar-nav mr-auto">
-                                <li class="nav-item active">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                                </li>
-                                @if (userRole == "Admin")
-                                {
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="ContactUs1" asp-action="Index">Customer Feedback</a>
-                                    </li>
-                                }
-                                else if (userRole == "Staff")
-                                {
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="ContactUs1" asp-action="Index">Customer Feedback</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="ProductStaff" asp-action="Index">Manage Product</a>
-                                    </li>
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        @if (userRole == "Admin")
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="ContactUs1" asp-action="Index">Customer Feedback</a>
+                            </li>
 
-                                }
-                            </ul>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="ProductStaff" asp-action="Index">Manage Product</a>
+                            </li>
+                        }
+                        else if (userRole == "Staff")
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="ContactUs1" asp-action="Index">Customer Feedback</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="ProductStaff" asp-action="Index">Manage Product</a>
+                            </li>
+
+                        }
+                    </ul>
                             <ul class="navbar-nav ml-auto">
                                 @if (userRole == "Admin")
                                 {
