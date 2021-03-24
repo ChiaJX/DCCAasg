@@ -49,7 +49,14 @@ namespace Sportswear.Controllers
             return productList.Find(a => a.Id == id);
         }
 
-        [HttpPost]
+
+        /*        public void addToCart()
+                {
+                    Create();
+                    ViewBag.message = "Added to Cart.";
+                }
+        */
+
         //check if order exists? edit : create 
         public async Task<IActionResult> addToCart([Bind("transactionId,userId,userAddress,userPhone,orderId,product,couponId,message,price,TransactionDateTime,status")] Transaction transaction)
         {
@@ -57,33 +64,33 @@ namespace Sportswear.Controllers
             if (_context.Transaction.Count() > 0 || (_context.Transaction.Any(e => e.status == "unpaid")))
             {
                 var getTransactionByStatus = await _context.Transaction.FirstOrDefaultAsync(m => m.status == "unpaid");
-                if (getTransactionByStatus.product == null || getTransactionByStatus.product == "")
+                try
                 {
-                    transaction.product = productName;
-                } else
-                {
+                    Debug.WriteLine("edit table2");
                     transaction.product = getTransactionByStatus.product + "//" + productName;
+                    transaction.price = getTransactionByStatus.price + decimal.Parse(productPrice);
+                    transaction.TransactionDateTime = DateTime.Now;
+                    transaction.userId = getTransactionByStatus.userId;
+                    transaction.orderId = getTransactionByStatus.orderId;
+                    transaction.userAddress = getTransactionByStatus.userAddress;
+                    transaction.userPhone = getTransactionByStatus.userPhone;
+                    transaction.couponId = getTransactionByStatus.couponId;
+                    transaction.message = getTransactionByStatus.message;
+                    transaction.status = getTransactionByStatus.status;
+                    _context.Update(transaction);
+                    await _context.SaveChangesAsync();
                 }
-                transaction.price = getTransactionByStatus.price + decimal.Parse(productPrice);
-                transaction.TransactionDateTime = DateTime.Now;
-                transaction.userId = getTransactionByStatus.userId;
-                transaction.orderId = getTransactionByStatus.orderId;
-                transaction.userAddress = getTransactionByStatus.userAddress;
-                transaction.userPhone = getTransactionByStatus.userPhone;
-                transaction.couponId = getTransactionByStatus.couponId;
-                transaction.message = getTransactionByStatus.message;
-                transaction.status = getTransactionByStatus.status;
-
-                Debug.WriteLine("PRODUCT = " + transaction.product);
-                _context.Update(transaction);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("Create", "Transactions", new { transactionId = transaction.transactionId});
+                catch (DbUpdateConcurrencyException)
+                {
+                    return NotFound();
+                }
+                return RedirectToAction("Create", "Transactions", new { transactionId = transaction.transactionId, productId = productID });
             }
             else
             {
                 createOrder(transaction);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Create", "Transactions", new { transactionId = transaction.transactionId });
+                return RedirectToAction("Create", "Transactions", new { transactionId = transaction.transactionId, productId = productID });
             }
         }
 
@@ -102,7 +109,5 @@ namespace Sportswear.Controllers
             transaction.status = "unpaid";
             _context.Add(transaction);
         }
-
- 
     }
 }

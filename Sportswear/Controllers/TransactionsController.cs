@@ -22,17 +22,15 @@ namespace Sportswear.Views.Transactions
         private SignInManager<SportswearUser> SignInManager;
         private UserManager<SportswearUser> UserManager;
 
-
         Product prod;
-        private UserManager<SportswearUser> userManager;
-        private SignInManager<SportswearUser> SignInManager;
+
 
         public TransactionsController(SportswearNewContext context, ICosmosDbService cosmosDbService, 
             UserManager<SportswearUser> usrMgr, SignInManager<SportswearUser> signinMgr)
         {
             _context = context;
             _cosmosDbService = cosmosDbService;
-            userManager = usrMgr;
+            UserManager = usrMgr;
             SignInManager = signinMgr;
         }
 
@@ -248,6 +246,14 @@ namespace Sportswear.Views.Transactions
             {
                 try
                 {
+                    if (SignInManager.IsSignedIn(User))
+                    {
+                        var user = from m in UserManager.Users
+                                   where m.Id.Equals(UserManager.GetUserId(User))
+                                   select m.Id;
+
+                        transaction.userId = user.ToString();
+                    }
                     transaction.status = "paid";
                     _context.Update(transaction);
                     await _context.SaveChangesAsync();
