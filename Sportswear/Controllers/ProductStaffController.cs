@@ -39,13 +39,44 @@
         [HttpPost]
         [ActionName("Create")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> CreateAsync([Bind("Id,Name,ImageURL,Price,Description,Category")] Product product)
+        public async Task<ActionResult> CreateAsync([Bind("Id,Name,ImageURL,Price,Description,Category,imgFile")] Product product)
         {
             if (ModelState.IsValid)
             {
-                uploadFile(product.Name, product.ImageURL);
-                product.Id = Guid.NewGuid().ToString();
-                await _cosmosDbService.AddItemAsync(product);
+                
+                Product productToBeAdded = new Product();
+
+                if (product.imgFile != null)
+                {
+                    //Create A Local File Stream for the Image Uploaded
+                    byte[] fileData;
+                    using (var target = new MemoryStream())
+                    {
+                        product.imgFile.CopyTo(target);
+                        fileData = target.ToArray();
+                    }
+
+                    CloudBlobContainer container = getBlobStorageInformation();
+                    CloudBlockBlob blob = container.GetBlockBlobReference(product.Name + ".jpg");
+                    await blob.UploadFromByteArrayAsync(fileData, 0, fileData.Length);
+
+                    //uploadFile(product.Name, fileStream);
+                    product.Id = Guid.NewGuid().ToString();
+                    product.ImageURL = "https://sportswearblobstorage.blob.core.windows.net/productblob/" + product.Name + ".jpg";
+                }
+                else
+                {
+
+                }
+
+                productToBeAdded.Id = product.Id;
+                productToBeAdded.Name = product.Name;
+                productToBeAdded.ImageURL = product.ImageURL;
+                productToBeAdded.Price = product.Price;
+                productToBeAdded.Description = product.Description;
+                productToBeAdded.Category = product.Category;
+
+                await _cosmosDbService.AddItemAsync(productToBeAdded);
                 return RedirectToAction("Index");
             }
 
@@ -55,11 +86,44 @@
         [HttpPost]
         [ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> EditAsync([Bind("Id,Name,ImageURL,Price,Description,Category")] Product product)
+        public async Task<ActionResult> EditAsync([Bind("Id,Name,ImageURL,Price,Description,Category,imgFile")] Product product)
         {
             if (ModelState.IsValid)
             {
-                await _cosmosDbService.UpdateItemAsync(product.Id, product);
+
+                Product productToBeAdded = new Product();
+
+                if (product.imgFile != null)
+                {
+                    //Create A Local File Stream for the Image Uploaded
+                    byte[] fileData;
+                    using (var target = new MemoryStream())
+                    {
+                        product.imgFile.CopyTo(target);
+                        fileData = target.ToArray();
+                    }
+
+                    CloudBlobContainer container = getBlobStorageInformation();
+                    CloudBlockBlob blob = container.GetBlockBlobReference(product.Name + ".jpg");
+                    await blob.UploadFromByteArrayAsync(fileData, 0, fileData.Length);
+
+
+                    //uploadFile(product.Name, fileStream);
+                    product.ImageURL = "https://sportswearblobstorage.blob.core.windows.net/productblob/" + product.Name + ".jpg";
+                }
+                else
+                {
+
+                }
+
+                productToBeAdded.Id = product.Id;
+                productToBeAdded.Name = product.Name;
+                productToBeAdded.ImageURL = product.ImageURL;
+                productToBeAdded.Price = product.Price;
+                productToBeAdded.Description = product.Description;
+                productToBeAdded.Category = product.Category;
+
+                await _cosmosDbService.UpdateItemAsync(product.Id, productToBeAdded);
                 return RedirectToAction("Index");
             }
 
@@ -106,7 +170,7 @@
         public async Task<ActionResult> DeleteConfirmedAsync([Bind("Id")] string id)
         {
             Product product = await _cosmosDbService.GetItemAsync(id);
-            delete(product.Name);
+            deleteBlobItem(product.Name);
             await _cosmosDbService.DeleteItemAsync(id);
             return RedirectToAction("Index");
         }
@@ -136,7 +200,17 @@
             return container;
         }
 
-        public Boolean uploadFile(string imgName, string imgLocation)
+        public Boolean uploadFile(string imgName, FileStream imgFileStream)
+        {
+            CloudBlobContainer container = getBlobStorageInformation();
+            CloudBlockBlob blob = container.GetBlockBlobReference(imgName);
+
+            blob.UploadFromStreamAsync(imgFileStream).Wait();
+
+            return true;
+        }
+
+        /*public Boolean uploadFile(string imgName, string imgLocation)
         {
             CloudBlobContainer container = getBlobStorageInformation();
             CloudBlockBlob blob = container.GetBlockBlobReference(imgName);
@@ -146,7 +220,7 @@
                 blob.UploadFromStreamAsync(fileStream).Wait();
             }
             return true;
-        }
+        }*/
 
 
 
@@ -178,7 +252,7 @@
         }
 
 
-        public ActionResult delete(string imgName)
+        public ActionResult deleteBlobItem(string imgName)
         {
             CloudBlobContainer container = getBlobStorageInformation();
             string blobname = ""; string messageContent = "";
