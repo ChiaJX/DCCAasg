@@ -58,7 +58,13 @@ namespace Sportswear.Controllers
             {
                 var getTransactionByStatus = await _context.Transaction.FirstOrDefaultAsync(m => m.status == "unpaid");
                 Debug.WriteLine("edit table2");
-                transaction.product = getTransactionByStatus.product + "//" + productName;
+                if (getTransactionByStatus.product == null || getTransactionByStatus.product == "")
+                {
+                    transaction.product = productName;
+                } else
+                {
+                    transaction.product = getTransactionByStatus.product.TrimStart('/') + "//" + productName;
+                }
                 transaction.price = getTransactionByStatus.price + decimal.Parse(productPrice);
                 transaction.TransactionDateTime = DateTime.Now;
                 transaction.userId = getTransactionByStatus.userId;
@@ -69,6 +75,7 @@ namespace Sportswear.Controllers
                 transaction.message = getTransactionByStatus.message;
                 transaction.status = getTransactionByStatus.status;
                 updateOrder(transaction);
+                Debug.WriteLine("PRODUCT = " + transaction.product);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Create", "Transactions", new { transactionId = transaction.transactionId});
             }
@@ -97,7 +104,6 @@ namespace Sportswear.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public void updateOrder([Bind("transactionId,userId,userAddress,userPhone,orderId,product,couponId,message,price,TransactionDateTime,status")] Transaction transaction)
         {
             _context.Update(transaction);
