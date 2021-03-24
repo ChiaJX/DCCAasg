@@ -9,12 +9,20 @@ using Microsoft.EntityFrameworkCore;
 using Sportswear.Data;
 using Sportswear.Models;
 
+using Microsoft.AspNetCore.Identity;
+using Sportswear.Areas.Identity.Data;
+
 namespace Sportswear.Views.Transactions
 {
     public class TransactionsController : Controller
     {
         private readonly SportswearNewContext _context;
         private readonly ICosmosDbService _cosmosDbService;
+
+        private SignInManager<SportswearUser> SignInManager;
+        private UserManager<SportswearUser> UserManager;
+
+
         Product prod;
         private UserManager<SportswearUser> userManager;
         private SignInManager<SportswearUser> SignInManager;
@@ -147,6 +155,13 @@ namespace Sportswear.Views.Transactions
             {
                 var getTransactionByStatus = await _context.Transaction.FirstOrDefaultAsync(m => m.status == "unpaid");
                 transactionId = getTransactionByStatus.transactionId.ToString();
+            }
+
+            if (SignInManager.IsSignedIn(User))
+            {
+                var user = from m in UserManager.Users
+                           where m.Id.Equals(UserManager.GetUserId(User))
+                           select m.Id;
             }
 
             List<Transaction> transactionList = _context.Transaction.ToList();
