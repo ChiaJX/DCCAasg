@@ -21,7 +21,7 @@ namespace Sportswear.Views.Transactions
 
         private readonly SignInManager<SportswearUser> _SignInManager;
         private readonly UserManager<SportswearUser> _UserManager;
-
+        static volatile public string pName;
         Product prod;
 
 
@@ -37,22 +37,8 @@ namespace Sportswear.Views.Transactions
         // GET: Transactions
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Transaction.ToListAsync());
 
-            //if (_SignInManager.IsSignedIn(User))
-            //{
-            //    var user = from m in _UserManager.Users
-            //               where m.Id.Equals(_UserManager.GetUserId(User))
-            //               select m.Id;
-
-            //    foreach (string Id in user)
-            //    {
-            //        return _context.Transaction.FindAsync(e => e.userId == Id);
-            //    }
-            //} else
-            //{
-            //    return View(await _context.Transaction.ToListAsync());
-            //}
+                return View(await _context.Transaction.ToListAsync());
         }
 
         // GET: Transactions/Details/5
@@ -193,8 +179,6 @@ namespace Sportswear.Views.Transactions
             {
                 if (item.transactionId.ToString() == transactionId)
                 {
-                    Debug.WriteLine("prod name : " + item.product);
-                    item.product.ToString();
                     string[] pNameList = item.product.ToString().Split("//");
 
                     /*                    var qty = from name in pNameList
@@ -213,12 +197,11 @@ namespace Sportswear.Views.Transactions
                     foreach (var name in pNameList)
                     {
                         productList.Add(getProductByNameAsync(name).Result);
-                        Debug.WriteLine("Result : " + productList);
                     }
                     TotalPrice = item.price;
                 }
             }
-            Debug.WriteLine("Result : " + productList);
+
             ViewBag.Products = productList;
             ViewBag.TotalPrice = TotalPrice;
             ViewBag.GrandTotalPrice = ViewBag.TotalPrice + 20;
@@ -241,18 +224,18 @@ namespace Sportswear.Views.Transactions
             string[] pNameList = transaction.product.ToString().Split("//");
 
             pNameList = pNameList.Where(val => val != productName).ToArray(); //recreate an array without the removed element
-            foreach(string item in pNameList)
+            if (pNameList.Length == 0)
             {
-                string pName = string.Join("//", item);
-                if (pName == "")
+                pName = "";
+            } else
+            {
+                foreach (string item in pNameList)
                 {
-                    Debug.WriteLine("EMPTY PRODUCT NAME LISTTT");
-                    transaction.product = "";
-                } else
-                {
-                    transaction.product = pName;
+                    pName = string.Join("//", item);
                 }
             }
+
+            transaction.product = pName;
             _context.Update(transaction);
             await _context.SaveChangesAsync();
             return RedirectToAction("Create", new { msg = "Item deleted!" });
@@ -261,14 +244,8 @@ namespace Sportswear.Views.Transactions
 
         //POST: checkout cart -> payment gaodim
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> checkout(int id, [Bind("transactionId,userId,userAddress,userPhone,orderId,product,couponId,message,price,TransactionDateTime,status")] Transaction transaction)
         {
-            if (id != transaction.transactionId)
-            {
-                return NotFound();
-            }
-
             if (ModelState.IsValid)
             {
                 try
@@ -287,18 +264,9 @@ namespace Sportswear.Views.Transactions
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!TransactionExists(transaction.transactionId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
                 }
-
             }
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index");
         }
 
 

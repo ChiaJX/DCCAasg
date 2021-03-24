@@ -73,7 +73,6 @@ namespace Sportswear.Controllers
                 foreach (string Id in user)
                 {
                     userID = Id;
-                    Debug.WriteLine("user ID : " + Id);
                 }
                 transaction.userId = userID;
 
@@ -89,8 +88,15 @@ namespace Sportswear.Controllers
                 var getTransactionByStatus = await _context.Transaction.FirstOrDefaultAsync(m => m.status == "unpaid");
                 try
                 {
-                    
-                    transaction.product = getTransactionByStatus.product + "//" + productName;
+                    if (getTransactionByStatus.product == "")
+                    {
+                        transaction.product = productName;
+                    }
+                    else
+                    {
+                        transaction.product = getTransactionByStatus.product + "//" + productName;
+                    }
+
                     transaction.price = getTransactionByStatus.price + decimal.Parse(productPrice);
                     transaction.TransactionDateTime = DateTime.Now;
                     transaction.userId = userID;
